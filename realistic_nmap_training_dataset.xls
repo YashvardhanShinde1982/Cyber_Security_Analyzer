@@ -1,0 +1,1001 @@
+Port_no,Service,State,Vulnerabilities,Tools,Next_steps,Commands
+445,microsoft-ds,open,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,metasploit|smbclient|enum4linux,Exploit SMB vulnerability,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,metasploit|mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+22,ssh,closed,CVE-2018-15473,nmap,Check SSH version|Enumerate supported algorithms,nmap -sV -p 22 <target>
+3306,mysql,filtered,CVE-2012-2122,sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+443,https,filtered,Heartbleed,testssl,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>|sslscan <target>
+161,snmp,open,CVE-2002-0012,onesixtyone|snmpwalk|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+443,https,open,SSL Misconfiguration|Weak TLS|Heartbleed,sslscan|testssl|nikto,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+3389,rdp,open,Weak Encryption,nmap|metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,filtered,CVE-2002-0012,nmap,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,metasploit|redis-cli|nmap,Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,nmap|onesixtyone,Enumerate SNMP values,onesixtyone -c community.txt <target>
+161,snmp,open,CVE-2002-0012,nmap,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication,metasploit|mongo,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,closed,BlueKeep,nmap|rdp-sec-check,Check RDP encryption|Test remote access security,rdp-sec-check <target>
+22,ssh,filtered,Weak Password,hydra|ssh-audit|metasploit|nmap,Check SSH version|Brute force SSH login|Enumerate supported algorithms,nmap -sV -p 22 <target>
+80,http,filtered,Directory Listing,gobuster|nikto,Enumerate directories|Test login forms,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+21,ftp,closed,Anonymous Login|CVE-2011-2523|Weak Password,ftp|nmap|metasploit|hydra,Check anonymous access,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,closed,Weak Password|Anonymous Login,hydra|nmap|metasploit|ftp,Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,nmap|metasploit|rdp-sec-check,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,closed,Remote Code Execution,redis-cli|metasploit|nmap,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,filtered,SSL Misconfiguration|Heartbleed|Weak TLS,nikto,Scan SSL vulnerabilities,sslscan <target>
+445,microsoft-ds,filtered,CVE-2017-0144|Weak Credentials,metasploit|smbclient|crackmapexec,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+445,microsoft-ds,filtered,CVE-2017-0144|SMBv1 Enabled|Weak Credentials,enum4linux|metasploit,Check SMB version|Enumerate SMB shares,crackmapexec smb <target>|smbclient -L //<target>
+21,ftp,closed,CVE-2011-2523|Anonymous Login,nmap,Check anonymous access,nmap -sV -p 21 <target>|ftp <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,metasploit|nmap|rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+21,ftp,open,Anonymous Login|Weak Password,nmap,Check anonymous access|Enumerate FTP files|Brute force credentials,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,metasploit|nmap|redis-cli,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+21,ftp,open,Anonymous Login|Weak Password,hydra,Brute force credentials|Enumerate FTP files,nmap -sV -p 21 <target>|ftp <target>
+21,ftp,filtered,Weak Password,metasploit|nmap,Brute force credentials,nmap -sV -p 21 <target>
+22,ssh,closed,CVE-2018-15473,hydra|nmap,Enumerate supported algorithms,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,rdp-sec-check|metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+21,ftp,filtered,Weak Password|CVE-2011-2523|Anonymous Login,ftp,Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>|nmap -sV -p 21 <target>
+22,ssh,open,CVE-2018-15473|Weak Password,hydra|nmap|metasploit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>
+22,ssh,filtered,Default Credentials,nmap,Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+22,ssh,open,CVE-2018-15473|Weak Password|Default Credentials,hydra|nmap|ssh-audit|metasploit,Check SSH version|Brute force SSH login|Enumerate supported algorithms,nmap -sV -p 22 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,metasploit|nmap|mongo,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+80,http,open,XSS|CVE-2021-41773|Directory Listing|SQL Injection,sqlmap|nikto,Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+3306,mysql,closed,CVE-2012-2122,mysql-client,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+27017,mongodb,filtered,Weak Authentication,nmap,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,open,Unauthenticated MongoDB,mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,metasploit|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+445,microsoft-ds,filtered,CVE-2017-0144,enum4linux|smbclient,Enumerate SMB shares|Check SMB version,crackmapexec smb <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,nmap|redis-cli|metasploit,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,closed,CVE-2002-0012,onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+6379,redis,closed,Unauthenticated Redis Access,redis-cli|nmap|metasploit,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+6379,redis,open,Remote Code Execution,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+27017,mongodb,filtered,Weak Authentication,nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+6379,redis,closed,Remote Code Execution,nmap|redis-cli,Check unauthenticated access,redis-cli -h <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,nmap,Check RDP encryption,rdp-sec-check <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523,ftp|nmap,Brute force credentials,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+161,snmp,closed,CVE-2002-0012,snmpwalk|onesixtyone|nmap,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>
+80,http,open,Directory Listing|CVE-2021-41773,dirb|burpsuite,Test login forms|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt
+80,http,closed,CVE-2021-41773,dirb,Test login forms|Check web vulnerabilities,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+21,ftp,closed,Anonymous Login|Weak Password,metasploit|hydra|nmap|ftp,Brute force credentials,ftp <target>
+443,https,closed,Weak TLS|Heartbleed,testssl|nikto|sslscan,Check TLS configuration,sslscan <target>
+3306,mysql,closed,Weak Password|CVE-2012-2122,mysql-client|nmap|sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+21,ftp,filtered,CVE-2011-2523,metasploit|nmap|ftp,Check anonymous access|Brute force credentials,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+443,https,closed,Heartbleed,testssl,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+22,ssh,closed,Default Credentials,metasploit|nmap|hydra|ssh-audit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3389,rdp,open,Weak Encryption,metasploit|nmap,Test remote access security,rdp-sec-check <target>
+80,http,filtered,Directory Listing,sqlmap|gobuster|nikto|dirb,Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>
+3306,mysql,closed,CVE-2012-2122|Weak Password,mysql-client,Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,closed,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,crackmapexec|metasploit|enum4linux,Enumerate SMB shares|Exploit SMB vulnerability,smbclient -L //<target>|enum4linux <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,nmap|metasploit,Check authentication settings,mongo --host <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,metasploit|nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+445,microsoft-ds,filtered,Weak Credentials|CVE-2017-0144|SMBv1 Enabled,enum4linux,Check SMB version,smbclient -L //<target>
+161,snmp,open,Public Community String,snmpwalk,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap|mongo,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3306,mysql,open,CVE-2012-2122,sqlmap|mysql-client|nmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+21,ftp,open,Anonymous Login|Weak Password|CVE-2011-2523,metasploit|nmap|hydra|ftp,Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>|nmap -sV -p 21 <target>
+443,https,closed,Heartbleed|Weak TLS|SSL Misconfiguration,nikto|testssl|sslscan,Check TLS configuration,testssl.sh <target>|sslscan <target>
+22,ssh,filtered,Weak Password,nmap|metasploit|ssh-audit,Enumerate supported algorithms|Brute force SSH login,ssh-audit <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,nmap|mongo,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,onesixtyone|snmpwalk,Check default community strings,onesixtyone -c community.txt <target>
+161,snmp,open,CVE-2002-0012|Public Community String,snmpwalk,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+161,snmp,filtered,Public Community String,snmpwalk|onesixtyone|nmap,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+80,http,closed,CVE-2021-41773|Directory Listing|XSS,sqlmap|gobuster,Enumerate directories|Check web vulnerabilities|Test login forms,sqlmap -u http://<target>/login.php?id=1
+22,ssh,open,Default Credentials|CVE-2018-15473,nmap|metasploit,Check SSH version|Enumerate supported algorithms|Brute force SSH login,ssh-audit <target>
+80,http,open,Directory Listing,nikto|gobuster|sqlmap,Test login forms,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+80,http,filtered,CVE-2021-41773|Directory Listing|SQL Injection,nikto,Test login forms,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+445,microsoft-ds,open,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,smbclient|metasploit|crackmapexec,Exploit SMB vulnerability|Enumerate SMB shares|Check SMB version,smbclient -L //<target>
+3306,mysql,filtered,CVE-2012-2122,sqlmap|nmap|mysql-client,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+21,ftp,filtered,Weak Password,metasploit|nmap,Enumerate FTP files|Brute force credentials|Check anonymous access,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,open,Weak Password,nmap|hydra|metasploit|ssh-audit,Brute force SSH login,nmap -sV -p 22 <target>
+445,microsoft-ds,closed,SMBv1 Enabled|Weak Credentials,enum4linux|metasploit|smbclient|crackmapexec,Check SMB version|Exploit SMB vulnerability,crackmapexec smb <target>|smbclient -L //<target>|enum4linux <target>
+445,microsoft-ds,closed,CVE-2017-0144|Weak Credentials,smbclient|crackmapexec|enum4linux|metasploit,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,crackmapexec smb <target>
+3306,mysql,open,CVE-2012-2122,sqlmap,Enumerate databases,mysql -h <target> -u root -p
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|metasploit,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+443,https,closed,Heartbleed,nikto,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+80,http,filtered,SQL Injection|Directory Listing|CVE-2021-41773|XSS,burpsuite|sqlmap,Test login forms|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+21,ftp,closed,Anonymous Login|CVE-2011-2523,metasploit|nmap|ftp,Check anonymous access|Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>
+22,ssh,closed,Default Credentials|CVE-2018-15473|Weak Password,nmap|hydra,Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>
+21,ftp,closed,Weak Password|CVE-2011-2523|Anonymous Login,ftp|metasploit|hydra,Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+22,ssh,closed,CVE-2018-15473|Weak Password,nmap,Enumerate supported algorithms,nmap -sV -p 22 <target>
+27017,mongodb,closed,Weak Authentication,nmap|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+3306,mysql,filtered,Weak Password,mysql-client|sqlmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+22,ssh,closed,Weak Password,nmap,Check SSH version|Enumerate supported algorithms,nmap -sV -p 22 <target>|ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+21,ftp,filtered,Weak Password|CVE-2011-2523|Anonymous Login,metasploit|ftp|nmap|hydra,Enumerate FTP files|Brute force credentials|Check anonymous access,ftp <target>|nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,filtered,Anonymous Login|Weak Password,metasploit|nmap,Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>|nmap -sV -p 21 <target>
+22,ssh,open,Weak Password|Default Credentials|CVE-2018-15473,ssh-audit|nmap|hydra,Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,metasploit|nmap|mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB,nmap|metasploit,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3389,rdp,closed,Weak Encryption|BlueKeep,metasploit|rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+161,snmp,closed,CVE-2002-0012,nmap|onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+445,microsoft-ds,open,Weak Credentials,smbclient|crackmapexec|enum4linux,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,crackmapexec smb <target>|enum4linux <target>
+161,snmp,open,CVE-2002-0012|Public Community String,onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+27017,mongodb,closed,Weak Authentication,mongo|nmap,Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+27017,mongodb,open,Unauthenticated MongoDB|Weak Authentication,nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB,metasploit,Check authentication settings,mongo --host <target>
+443,https,filtered,Weak TLS|SSL Misconfiguration,nikto|testssl|sslscan,Check TLS configuration,testssl.sh <target>
+443,https,closed,Heartbleed,sslscan|testssl|nikto,Scan SSL vulnerabilities,sslscan <target>
+3389,rdp,filtered,Weak Encryption,nmap|metasploit,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,open,Unauthenticated MongoDB|Weak Authentication,mongo|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+80,http,open,SQL Injection|Directory Listing|CVE-2021-41773,gobuster,Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+161,snmp,filtered,CVE-2002-0012,nmap|snmpwalk|onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+80,http,closed,Directory Listing,dirb,Test login forms|Check web vulnerabilities|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+3306,mysql,open,Weak Password|CVE-2012-2122,sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+22,ssh,filtered,Default Credentials,metasploit|hydra|ssh-audit,Brute force SSH login|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,mysql-client|nmap,Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,nmap|redis-cli,Check unauthenticated access,redis-cli -h <target>
+3389,rdp,filtered,Weak Encryption,metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+443,https,closed,Weak TLS,testssl|sslscan,Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+27017,mongodb,open,Unauthenticated MongoDB,metasploit|nmap|mongo,Check authentication settings,mongo --host <target>
+6379,redis,closed,Unauthenticated Redis Access,redis-cli,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,nmap|snmpwalk|onesixtyone,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+443,https,closed,Weak TLS|SSL Misconfiguration,sslscan|nikto,Scan SSL vulnerabilities,sslscan <target>
+80,http,open,SQL Injection|CVE-2021-41773,burpsuite|nikto,Enumerate directories|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+161,snmp,open,Public Community String|CVE-2002-0012,nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,onesixtyone|nmap|snmpwalk,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+6379,redis,open,Unauthenticated Redis Access,metasploit,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,closed,Public Community String,onesixtyone|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>
+21,ftp,filtered,Weak Password|Anonymous Login,nmap|ftp,Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>
+3389,rdp,open,BlueKeep,metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,open,SQL Injection,gobuster|dirb,Check web vulnerabilities|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+445,microsoft-ds,open,Weak Credentials,metasploit,Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>
+6379,redis,filtered,Remote Code Execution,nmap|metasploit|redis-cli,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523|Weak Password,ftp|nmap,Brute force credentials|Check anonymous access|Enumerate FTP files,ftp <target>|nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,closed,Default Credentials,nmap|ssh-audit,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+445,microsoft-ds,closed,SMBv1 Enabled|CVE-2017-0144,crackmapexec|smbclient|enum4linux|metasploit,Check SMB version|Exploit SMB vulnerability,crackmapexec smb <target>|smbclient -L //<target>|enum4linux <target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,nmap,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+22,ssh,open,Default Credentials|Weak Password|CVE-2018-15473,nmap|ssh-audit|hydra,Check SSH version|Brute force SSH login,nmap -sV -p 22 <target>|ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,metasploit|mongo|nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+21,ftp,open,CVE-2011-2523|Anonymous Login|Weak Password,hydra,Enumerate FTP files,ftp <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,rdp-sec-check,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,filtered,Weak Authentication,metasploit|nmap|mongo,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+27017,mongodb,open,Weak Authentication,metasploit|nmap|mongo,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,open,Weak Authentication,nmap|metasploit|mongo,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+22,ssh,filtered,CVE-2018-15473,nmap,Check SSH version,nmap -sV -p 22 <target>
+21,ftp,closed,Anonymous Login,ftp|hydra|metasploit,Brute force credentials,nmap -sV -p 21 <target>
+80,http,open,XSS|SQL Injection|Directory Listing,nikto|dirb|sqlmap,Check web vulnerabilities|Enumerate directories,nikto -h http://<target>
+443,https,closed,SSL Misconfiguration,testssl|sslscan,Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+3389,rdp,open,BlueKeep|Weak Encryption,rdp-sec-check|nmap|metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+443,https,closed,Weak TLS|SSL Misconfiguration|Heartbleed,sslscan,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap|sqlmap|mysql-client,Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+27017,mongodb,open,Weak Authentication,metasploit|mongo,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+22,ssh,open,CVE-2018-15473|Weak Password|Default Credentials,metasploit|ssh-audit|hydra,Brute force SSH login,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+21,ftp,open,CVE-2011-2523|Anonymous Login|Weak Password,ftp,Check anonymous access|Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>|ftp <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,nmap,Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,closed,CVE-2017-0144|SMBv1 Enabled,enum4linux,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>|crackmapexec smb <target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|metasploit|nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap|mysql-client,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+22,ssh,filtered,CVE-2018-15473|Default Credentials,metasploit|ssh-audit,Brute force SSH login|Check SSH version|Enumerate supported algorithms,ssh-audit <target>
+3306,mysql,closed,Weak Password|CVE-2012-2122,nmap|sqlmap|mysql-client,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,open,Remote Code Execution,redis-cli,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+21,ftp,closed,Weak Password|Anonymous Login,nmap|hydra|metasploit|ftp,Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>
+21,ftp,filtered,Weak Password|Anonymous Login,hydra,Brute force credentials,nmap -sV -p 21 <target>|ftp <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523|Weak Password,metasploit|hydra|ftp|nmap,Enumerate FTP files|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+21,ftp,open,Anonymous Login|CVE-2011-2523,metasploit,Brute force credentials|Check anonymous access,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,redis-cli|metasploit,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+443,https,open,SSL Misconfiguration|Weak TLS|Heartbleed,nikto|sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+21,ftp,closed,CVE-2011-2523|Anonymous Login|Weak Password,nmap,Enumerate FTP files|Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>|nmap -sV -p 21 <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,nmap,Test remote access security,rdp-sec-check <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,filtered,SSL Misconfiguration|Heartbleed,nikto|testssl,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+445,microsoft-ds,filtered,SMBv1 Enabled,enum4linux|smbclient|crackmapexec|metasploit,Check SMB version,enum4linux <target>|smbclient -L //<target>|crackmapexec smb <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,nmap,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,mongo,Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,closed,Weak Authentication,mongo|nmap|metasploit,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+22,ssh,closed,Default Credentials,ssh-audit|metasploit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+443,https,filtered,Heartbleed|Weak TLS,sslscan|nikto|testssl,Scan SSL vulnerabilities,sslscan <target>|testssl.sh <target>
+3306,mysql,filtered,Weak Password,sqlmap|mysql-client|nmap,Test default credentials,mysql -h <target> -u root -p
+22,ssh,filtered,Default Credentials,ssh-audit|hydra,Check SSH version|Enumerate supported algorithms,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+80,http,open,SQL Injection|Directory Listing|XSS|CVE-2021-41773,dirb|sqlmap|nikto|burpsuite|gobuster,Enumerate directories|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+22,ssh,closed,Default Credentials|CVE-2018-15473|Weak Password,nmap|ssh-audit,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,metasploit|enum4linux|smbclient|crackmapexec,Enumerate SMB shares,crackmapexec smb <target>
+443,https,filtered,SSL Misconfiguration,nikto,Scan SSL vulnerabilities,testssl.sh <target>
+80,http,closed,SQL Injection|Directory Listing,burpsuite|gobuster|sqlmap|nikto,Enumerate directories|Check web vulnerabilities,nikto -h http://<target>
+445,microsoft-ds,closed,CVE-2017-0144,metasploit,Enumerate SMB shares|Exploit SMB vulnerability|Check SMB version,enum4linux <target>|crackmapexec smb <target>
+3389,rdp,closed,BlueKeep,rdp-sec-check|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+6379,redis,closed,Remote Code Execution,redis-cli|metasploit|nmap,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+161,snmp,filtered,CVE-2002-0012,onesixtyone|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>
+3389,rdp,open,Weak Encryption,nmap|rdp-sec-check,Test remote access security,rdp-sec-check <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,metasploit|redis-cli|nmap,Check unauthenticated access,redis-cli -h <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,metasploit,Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+161,snmp,open,Public Community String|CVE-2002-0012,nmap,Enumerate SNMP values,snmpwalk -v2c -c public <target>
+445,microsoft-ds,closed,Weak Credentials|CVE-2017-0144,enum4linux|smbclient,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,enum4linux <target>
+80,http,closed,XSS,sqlmap|gobuster,Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+22,ssh,filtered,CVE-2018-15473,hydra|ssh-audit,Brute force SSH login|Check SSH version,nmap -sV -p 22 <target>
+22,ssh,filtered,Default Credentials|CVE-2018-15473,ssh-audit|nmap,Brute force SSH login|Check SSH version,nmap -sV -p 22 <target>
+80,http,open,Directory Listing|SQL Injection,dirb|nikto|sqlmap|gobuster,Test login forms|Check web vulnerabilities|Enumerate directories,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+3389,rdp,open,BlueKeep,rdp-sec-check|nmap,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+3389,rdp,open,Weak Encryption,nmap,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,filtered,BlueKeep,rdp-sec-check|metasploit|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,open,Public Community String|CVE-2002-0012,nmap|snmpwalk|onesixtyone,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>
+3389,rdp,open,Weak Encryption|BlueKeep,nmap|metasploit,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,closed,Weak Password|CVE-2018-15473|Default Credentials,ssh-audit,Check SSH version|Brute force SSH login|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+3389,rdp,closed,BlueKeep,nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,nmap|metasploit|redis-cli,Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+445,microsoft-ds,filtered,CVE-2017-0144,enum4linux|metasploit|crackmapexec,Enumerate SMB shares|Exploit SMB vulnerability|Check SMB version,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk|onesixtyone,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+445,microsoft-ds,filtered,SMBv1 Enabled,crackmapexec|metasploit|enum4linux|smbclient,Enumerate SMB shares,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+443,https,open,Heartbleed,sslscan|testssl|nikto,Check TLS configuration,sslscan <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,nmap|metasploit,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,nmap|metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap|nmap|mysql-client,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,metasploit|redis-cli,Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+21,ftp,open,Anonymous Login,metasploit,Enumerate FTP files,ftp <target>|nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+3389,rdp,open,BlueKeep,rdp-sec-check|nmap,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+445,microsoft-ds,closed,SMBv1 Enabled|Weak Credentials|CVE-2017-0144,enum4linux|smbclient|crackmapexec,Check SMB version,smbclient -L //<target>|crackmapexec smb <target>
+161,snmp,open,Public Community String,snmpwalk,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap|metasploit|mongo,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+443,https,open,Weak TLS,nikto,Check TLS configuration,testssl.sh <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,mongo|metasploit,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check|metasploit,Test remote access security,rdp-sec-check <target>
+3389,rdp,closed,Weak Encryption|BlueKeep,rdp-sec-check,Test remote access security,rdp-sec-check <target>
+21,ftp,closed,CVE-2011-2523|Anonymous Login,hydra|nmap,Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>|ftp <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,nmap|sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,closed,SMBv1 Enabled|Weak Credentials,crackmapexec|enum4linux|smbclient|metasploit,Check SMB version|Enumerate SMB shares,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+445,microsoft-ds,filtered,Weak Credentials|CVE-2017-0144,enum4linux,Check SMB version|Enumerate SMB shares|Exploit SMB vulnerability,crackmapexec smb <target>|enum4linux <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,nmap|rdp-sec-check,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,mongo,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,filtered,BlueKeep,rdp-sec-check,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+443,https,closed,Heartbleed,testssl|nikto,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+22,ssh,filtered,CVE-2018-15473,nmap,Check SSH version|Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,metasploit|mongo,Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+445,microsoft-ds,open,Weak Credentials,metasploit,Exploit SMB vulnerability,crackmapexec smb <target>
+161,snmp,open,Public Community String,nmap,Check default community strings,snmpwalk -v2c -c public <target>
+3389,rdp,filtered,Weak Encryption,rdp-sec-check,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+445,microsoft-ds,open,SMBv1 Enabled|Weak Credentials,enum4linux|smbclient|crackmapexec|metasploit,Exploit SMB vulnerability|Check SMB version,crackmapexec smb <target>|enum4linux <target>
+21,ftp,open,Weak Password|CVE-2011-2523|Anonymous Login,ftp|metasploit|nmap|hydra,Enumerate FTP files|Check anonymous access|Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+27017,mongodb,filtered,Weak Authentication,metasploit|mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+80,http,open,SQL Injection|XSS,dirb|sqlmap|burpsuite|nikto,Check web vulnerabilities|Enumerate directories|Test login forms,sqlmap -u http://<target>/login.php?id=1
+21,ftp,filtered,Weak Password|CVE-2011-2523,metasploit,Enumerate FTP files,nmap -sV -p 21 <target>
+21,ftp,filtered,Weak Password,ftp|nmap|metasploit|hydra,Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,open,Weak Password,metasploit|nmap,Check SSH version|Brute force SSH login|Enumerate supported algorithms,nmap -sV -p 22 <target>|ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+80,http,filtered,Directory Listing|CVE-2021-41773|SQL Injection|XSS,sqlmap,Test login forms|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt
+161,snmp,closed,CVE-2002-0012,snmpwalk,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+22,ssh,closed,Weak Password|Default Credentials,ssh-audit,Check SSH version|Enumerate supported algorithms|Brute force SSH login,ssh-audit <target>
+22,ssh,filtered,Weak Password|Default Credentials,ssh-audit,Enumerate supported algorithms|Brute force SSH login|Check SSH version,ssh-audit <target>
+21,ftp,filtered,CVE-2011-2523,hydra,Brute force credentials|Enumerate FTP files|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>
+80,http,filtered,Directory Listing,dirb|nikto|sqlmap|burpsuite,Test login forms|Check web vulnerabilities|Enumerate directories,nikto -h http://<target>
+6379,redis,closed,Remote Code Execution,metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>
+21,ftp,open,Anonymous Login,hydra|nmap|ftp|metasploit,Enumerate FTP files,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,closed,Anonymous Login|CVE-2011-2523,nmap|metasploit|hydra,Brute force credentials,ftp <target>|nmap -sV -p 21 <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,metasploit|enum4linux,Exploit SMB vulnerability|Enumerate SMB shares,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+3306,mysql,filtered,Weak Password,nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,metasploit|rdp-sec-check,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,filtered,Public Community String,onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+27017,mongodb,filtered,Unauthenticated MongoDB,metasploit,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3306,mysql,open,Weak Password,mysql-client|sqlmap,Enumerate databases,mysql -h <target> -u root -p
+27017,mongodb,open,Weak Authentication,nmap|metasploit,Enumerate databases,mongo --host <target>
+22,ssh,filtered,Default Credentials|CVE-2018-15473|Weak Password,hydra,Brute force SSH login|Check SSH version|Enumerate supported algorithms,ssh-audit <target>|nmap -sV -p 22 <target>
+6379,redis,closed,Remote Code Execution|Unauthenticated Redis Access,metasploit|nmap|redis-cli,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+161,snmp,open,CVE-2002-0012,snmpwalk|onesixtyone,Check default community strings,onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication,metasploit,Enumerate databases,mongo --host <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,sqlmap|mysql-client|nmap,Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+80,http,open,Directory Listing,burpsuite|gobuster|sqlmap,Check web vulnerabilities,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+80,http,closed,CVE-2021-41773|XSS|SQL Injection,sqlmap|burpsuite|gobuster,Test login forms,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>
+22,ssh,closed,Weak Password,nmap|metasploit,Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+161,snmp,open,Public Community String,nmap|snmpwalk|onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+443,https,open,Weak TLS|Heartbleed|SSL Misconfiguration,sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+27017,mongodb,filtered,Weak Authentication,metasploit|mongo|nmap,Enumerate databases|Check authentication settings,mongo --host <target>
+3306,mysql,closed,Weak Password|CVE-2012-2122,mysql-client|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,open,Remote Code Execution,metasploit|nmap|redis-cli,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+21,ftp,open,Anonymous Login|CVE-2011-2523,ftp|hydra|metasploit|nmap,Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+6379,redis,closed,Remote Code Execution,nmap|redis-cli|metasploit,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+6379,redis,filtered,Unauthenticated Redis Access,nmap|metasploit|redis-cli,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+445,microsoft-ds,filtered,Weak Credentials,metasploit|smbclient|crackmapexec,Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,metasploit,Enumerate databases,mongo --host <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,filtered,Unauthenticated Redis Access,metasploit|redis-cli,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,closed,Heartbleed|SSL Misconfiguration,sslscan|nikto|testssl,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,mongo|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>
+443,https,closed,Weak TLS,nikto,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,mysql-client|nmap,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+27017,mongodb,filtered,Weak Authentication,metasploit|mongo,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,filtered,BlueKeep,metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,filtered,Anonymous Login,nmap|metasploit|hydra,Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+80,http,filtered,CVE-2021-41773,gobuster|burpsuite|dirb,Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+27017,mongodb,closed,Unauthenticated MongoDB|Weak Authentication,nmap,Enumerate databases,mongo --host <target>
+80,http,closed,SQL Injection|XSS|Directory Listing,gobuster,Check web vulnerabilities|Test login forms|Enumerate directories,nikto -h http://<target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,onesixtyone|snmpwalk,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+3389,rdp,filtered,Weak Encryption,nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+3306,mysql,closed,CVE-2012-2122|Weak Password,sqlmap|mysql-client,Enumerate databases,mysql -h <target> -u root -p
+161,snmp,closed,CVE-2002-0012|Public Community String,nmap,Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+445,microsoft-ds,open,SMBv1 Enabled|CVE-2017-0144,enum4linux|metasploit|smbclient,Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>
+443,https,filtered,Weak TLS|SSL Misconfiguration|Heartbleed,sslscan|testssl|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+21,ftp,filtered,CVE-2011-2523|Weak Password,hydra|nmap,Enumerate FTP files|Brute force credentials|Check anonymous access,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+22,ssh,closed,Weak Password,nmap|hydra|metasploit,Check SSH version|Brute force SSH login|Enumerate supported algorithms,ssh-audit <target>|nmap -sV -p 22 <target>
+6379,redis,filtered,Remote Code Execution,redis-cli,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+443,https,closed,SSL Misconfiguration|Weak TLS|Heartbleed,sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+22,ssh,open,CVE-2018-15473,nmap|metasploit|ssh-audit,Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+22,ssh,filtered,CVE-2018-15473|Weak Password,nmap|ssh-audit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+161,snmp,closed,CVE-2002-0012|Public Community String,nmap|onesixtyone|snmpwalk,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>
+21,ftp,closed,Weak Password|CVE-2011-2523|Anonymous Login,ftp|nmap,Check anonymous access|Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap|onesixtyone|snmpwalk,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+22,ssh,closed,Default Credentials,nmap|hydra|metasploit,Enumerate supported algorithms|Check SSH version|Brute force SSH login,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+22,ssh,closed,Weak Password|CVE-2018-15473|Default Credentials,ssh-audit|hydra|metasploit|nmap,Check SSH version|Brute force SSH login|Enumerate supported algorithms,nmap -sV -p 22 <target>
+21,ftp,closed,Anonymous Login,hydra,Check anonymous access,ftp <target>
+445,microsoft-ds,open,CVE-2017-0144,crackmapexec,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|nmap|metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+443,https,closed,Weak TLS,sslscan|testssl|nikto,Check TLS configuration,testssl.sh <target>|sslscan <target>
+445,microsoft-ds,closed,CVE-2017-0144,smbclient|enum4linux|metasploit,Exploit SMB vulnerability|Check SMB version,crackmapexec smb <target>
+6379,redis,closed,Unauthenticated Redis Access,metasploit|nmap|redis-cli,Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3389,rdp,open,BlueKeep|Weak Encryption,rdp-sec-check|nmap,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk|onesixtyone,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+80,http,filtered,Directory Listing|CVE-2021-41773,gobuster|nikto|burpsuite|dirb,Test login forms,nikto -h http://<target>
+21,ftp,closed,Weak Password|Anonymous Login|CVE-2011-2523,ftp|hydra|metasploit|nmap,Brute force credentials|Enumerate FTP files|Check anonymous access,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+3389,rdp,closed,Weak Encryption,metasploit|nmap|rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,closed,SQL Injection|Directory Listing|CVE-2021-41773,sqlmap|burpsuite,Test login forms,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+3389,rdp,closed,BlueKeep|Weak Encryption,nmap|rdp-sec-check|metasploit,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,mysql-client,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,closed,CVE-2017-0144|SMBv1 Enabled,smbclient|metasploit,Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap|nmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+3306,mysql,open,Weak Password,nmap|sqlmap|mysql-client,Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+3389,rdp,filtered,Weak Encryption,nmap|rdp-sec-check|metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,metasploit|nmap,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+445,microsoft-ds,closed,CVE-2017-0144|SMBv1 Enabled,crackmapexec|metasploit|smbclient,Check SMB version,crackmapexec smb <target>|enum4linux <target>
+3389,rdp,closed,BlueKeep,metasploit|nmap|rdp-sec-check,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+22,ssh,open,Weak Password,ssh-audit,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+22,ssh,closed,Weak Password|CVE-2018-15473|Default Credentials,hydra|ssh-audit|metasploit|nmap,Brute force SSH login|Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>
+443,https,filtered,SSL Misconfiguration|Heartbleed|Weak TLS,sslscan|testssl,Scan SSL vulnerabilities,sslscan <target>|testssl.sh <target>
+3389,rdp,filtered,Weak Encryption,rdp-sec-check|nmap,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+161,snmp,closed,Public Community String,onesixtyone|nmap|snmpwalk,Enumerate SNMP values,onesixtyone -c community.txt <target>
+21,ftp,filtered,Weak Password,ftp|hydra,Enumerate FTP files|Brute force credentials|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+21,ftp,open,Weak Password|CVE-2011-2523|Anonymous Login,metasploit|ftp|hydra|nmap,Brute force credentials|Check anonymous access|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+21,ftp,closed,Weak Password|Anonymous Login|CVE-2011-2523,metasploit,Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>|ftp <target>
+443,https,filtered,Weak TLS|Heartbleed,sslscan|nikto,Check TLS configuration,testssl.sh <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap|nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,enum4linux|smbclient,Enumerate SMB shares|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>|enum4linux <target>
+80,http,open,CVE-2021-41773|Directory Listing|SQL Injection,burpsuite|dirb|gobuster,Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,nmap|metasploit|redis-cli,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+161,snmp,closed,Public Community String,snmpwalk|onesixtyone,Check default community strings,onesixtyone -c community.txt <target>
+445,microsoft-ds,filtered,SMBv1 Enabled|CVE-2017-0144|Weak Credentials,metasploit|smbclient|crackmapexec,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,crackmapexec smb <target>
+6379,redis,open,Remote Code Execution,redis-cli,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+80,http,closed,SQL Injection|CVE-2021-41773|XSS|Directory Listing,nikto|sqlmap,Test login forms|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+3306,mysql,open,CVE-2012-2122,mysql-client|sqlmap|nmap,Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+22,ssh,closed,Weak Password|CVE-2018-15473,nmap,Enumerate supported algorithms|Brute force SSH login,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+443,https,open,Heartbleed,sslscan|nikto|testssl,Scan SSL vulnerabilities,sslscan <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,nmap|metasploit|rdp-sec-check,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,closed,CVE-2002-0012,nmap|snmpwalk,Check default community strings,onesixtyone -c community.txt <target>
+21,ftp,closed,Weak Password,nmap|metasploit,Check anonymous access|Brute force credentials|Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+80,http,closed,SQL Injection,sqlmap|burpsuite,Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt
+21,ftp,closed,Anonymous Login,nmap,Check anonymous access,nmap -sV -p 21 <target>
+445,microsoft-ds,closed,Weak Credentials,metasploit|crackmapexec,Check SMB version|Enumerate SMB shares|Exploit SMB vulnerability,smbclient -L //<target>
+443,https,open,Heartbleed|SSL Misconfiguration,testssl,Check TLS configuration,sslscan <target>
+161,snmp,open,CVE-2002-0012,nmap,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+3389,rdp,open,Weak Encryption,nmap,Check RDP encryption,rdp-sec-check <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,nmap,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+161,snmp,closed,CVE-2002-0012,onesixtyone|nmap|snmpwalk,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,redis-cli|nmap,Check unauthenticated access,redis-cli -h <target>
+80,http,closed,Directory Listing|CVE-2021-41773,burpsuite|sqlmap|gobuster,Test login forms|Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+80,http,open,Directory Listing|XSS|CVE-2021-41773|SQL Injection,nikto|dirb,Check web vulnerabilities|Enumerate directories|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+161,snmp,filtered,Public Community String|CVE-2002-0012,onesixtyone|snmpwalk|nmap,Check default community strings,onesixtyone -c community.txt <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,nmap|metasploit|rdp-sec-check,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,filtered,Remote Code Execution,metasploit|nmap|redis-cli,Check unauthenticated access,nmap -sV -p 6379 <target>
+445,microsoft-ds,open,SMBv1 Enabled,enum4linux|metasploit|smbclient,Check SMB version|Exploit SMB vulnerability,smbclient -L //<target>|enum4linux <target>
+22,ssh,open,CVE-2018-15473|Weak Password|Default Credentials,ssh-audit|hydra,Brute force SSH login|Enumerate supported algorithms,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+443,https,closed,Weak TLS,nikto|testssl|sslscan,Check TLS configuration,testssl.sh <target>|sslscan <target>
+161,snmp,filtered,CVE-2002-0012,nmap|onesixtyone|snmpwalk,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+3306,mysql,filtered,Weak Password,mysql-client,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+3306,mysql,closed,Weak Password,mysql-client|sqlmap,Test default credentials,mysql -h <target> -u root -p
+6379,redis,filtered,Remote Code Execution,redis-cli|metasploit|nmap,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3389,rdp,filtered,Weak Encryption,metasploit|rdp-sec-check|nmap,Check RDP encryption|Test remote access security,rdp-sec-check <target>
+21,ftp,open,Weak Password|Anonymous Login,ftp|nmap|metasploit|hydra,Enumerate FTP files,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+3389,rdp,open,Weak Encryption|BlueKeep,nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,open,Weak Authentication,metasploit|mongo|nmap,Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,filtered,Weak Authentication,nmap,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,mongo|metasploit|nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+443,https,filtered,Weak TLS,testssl,Scan SSL vulnerabilities,testssl.sh <target>
+3306,mysql,filtered,CVE-2012-2122,sqlmap,Test default credentials,nmap --script mysql-info -p 3306 <target>
+22,ssh,open,CVE-2018-15473|Default Credentials,metasploit|nmap|ssh-audit|hydra,Enumerate supported algorithms,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+22,ssh,filtered,CVE-2018-15473|Default Credentials|Weak Password,metasploit|ssh-audit|nmap|hydra,Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+80,http,open,CVE-2021-41773|Directory Listing|XSS,dirb,Enumerate directories|Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,open,Default Credentials,metasploit,Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+443,https,closed,SSL Misconfiguration|Weak TLS|Heartbleed,nikto|sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+443,https,open,Weak TLS,sslscan|nikto,Check TLS configuration,testssl.sh <target>
+22,ssh,open,CVE-2018-15473|Weak Password,ssh-audit|metasploit|nmap|hydra,Brute force SSH login|Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+21,ftp,open,Anonymous Login,hydra,Check anonymous access|Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+6379,redis,filtered,Unauthenticated Redis Access,nmap,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3306,mysql,open,Weak Password,nmap|sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+443,https,closed,Weak TLS|SSL Misconfiguration,nikto|sslscan|testssl,Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+80,http,closed,CVE-2021-41773|XSS|Directory Listing,sqlmap|nikto|dirb|burpsuite,Enumerate directories|Test login forms,sqlmap -u http://<target>/login.php?id=1
+161,snmp,closed,CVE-2002-0012|Public Community String,onesixtyone|snmpwalk|nmap,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+3306,mysql,closed,CVE-2012-2122|Weak Password,mysql-client|nmap|sqlmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,metasploit,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,open,Heartbleed,testssl|nikto|sslscan,Scan SSL vulnerabilities,sslscan <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,redis-cli|nmap|metasploit,Check unauthenticated access,nmap -sV -p 6379 <target>
+27017,mongodb,filtered,Weak Authentication,nmap|mongo|metasploit,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+22,ssh,closed,Default Credentials|Weak Password,metasploit|nmap|hydra,Enumerate supported algorithms,ssh-audit <target>
+443,https,filtered,SSL Misconfiguration,sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+21,ftp,closed,Weak Password|CVE-2011-2523|Anonymous Login,ftp,Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+445,microsoft-ds,closed,SMBv1 Enabled|Weak Credentials|CVE-2017-0144,metasploit,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,smbclient -L //<target>|enum4linux <target>|crackmapexec smb <target>
+27017,mongodb,closed,Weak Authentication,metasploit,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,snmpwalk|nmap,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>
+161,snmp,closed,Public Community String,onesixtyone|snmpwalk,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+3389,rdp,open,Weak Encryption|BlueKeep,metasploit|rdp-sec-check|nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,closed,CVE-2021-41773|Directory Listing|SQL Injection,sqlmap|nikto|gobuster|dirb|burpsuite,Test login forms|Enumerate directories|Check web vulnerabilities,nikto -h http://<target>
+3389,rdp,open,BlueKeep,metasploit|rdp-sec-check|nmap,Check RDP encryption|Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,closed,Anonymous Login|CVE-2011-2523|Weak Password,metasploit|ftp|nmap|hydra,Brute force credentials|Check anonymous access,ftp <target>|nmap -sV -p 21 <target>
+3306,mysql,open,CVE-2012-2122,sqlmap|mysql-client,Test default credentials,nmap --script mysql-info -p 3306 <target>
+22,ssh,closed,CVE-2018-15473|Weak Password|Default Credentials,metasploit,Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+445,microsoft-ds,filtered,SMBv1 Enabled,enum4linux|crackmapexec,Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check|nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,filtered,SQL Injection|CVE-2021-41773|XSS|Directory Listing,burpsuite|gobuster,Check web vulnerabilities|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,filtered,Weak Password|CVE-2018-15473|Default Credentials,nmap|ssh-audit|metasploit|hydra,Check SSH version|Brute force SSH login|Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+445,microsoft-ds,filtered,CVE-2017-0144|SMBv1 Enabled|Weak Credentials,enum4linux|metasploit|crackmapexec|smbclient,Check SMB version,crackmapexec smb <target>
+6379,redis,filtered,Unauthenticated Redis Access,nmap,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,nmap|mysql-client,Test default credentials,mysql -h <target> -u root -p
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,metasploit|redis-cli,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+80,http,open,SQL Injection|Directory Listing,dirb|burpsuite|gobuster|sqlmap|nikto,Test login forms|Check web vulnerabilities,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+27017,mongodb,closed,Weak Authentication,nmap,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523,ftp|metasploit|hydra|nmap,Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,open,Weak Password|CVE-2018-15473,ssh-audit|nmap|metasploit|hydra,Enumerate supported algorithms|Check SSH version,nmap -sV -p 22 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,nmap|metasploit|mongo,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,filtered,CVE-2017-0144|SMBv1 Enabled,crackmapexec|smbclient|metasploit|enum4linux,Exploit SMB vulnerability,crackmapexec smb <target>
+445,microsoft-ds,filtered,CVE-2017-0144,enum4linux|crackmapexec,Enumerate SMB shares,enum4linux <target>
+443,https,closed,Weak TLS|Heartbleed,testssl,Check TLS configuration,testssl.sh <target>
+445,microsoft-ds,closed,Weak Credentials,smbclient,Check SMB version|Enumerate SMB shares,enum4linux <target>|smbclient -L //<target>
+3306,mysql,closed,Weak Password,sqlmap|nmap|mysql-client,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+161,snmp,closed,CVE-2002-0012|Public Community String,snmpwalk|onesixtyone|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>
+443,https,filtered,Weak TLS,sslscan|testssl|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+445,microsoft-ds,closed,SMBv1 Enabled|CVE-2017-0144|Weak Credentials,crackmapexec|smbclient,Check SMB version|Enumerate SMB shares,smbclient -L //<target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,nmap|metasploit|mongo,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+6379,redis,open,Remote Code Execution,metasploit|redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+22,ssh,filtered,Weak Password|CVE-2018-15473,nmap|hydra|ssh-audit|metasploit,Brute force SSH login,nmap -sV -p 22 <target>|ssh-audit <target>
+80,http,filtered,SQL Injection|Directory Listing|XSS|CVE-2021-41773,sqlmap|nikto,Check web vulnerabilities|Test login forms|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+3389,rdp,closed,Weak Encryption|BlueKeep,rdp-sec-check|metasploit,Test remote access security,rdp-sec-check <target>
+80,http,closed,XSS|CVE-2021-41773|SQL Injection|Directory Listing,sqlmap|gobuster|burpsuite|dirb,Enumerate directories|Check web vulnerabilities,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+21,ftp,filtered,CVE-2011-2523,ftp|metasploit|hydra,Brute force credentials|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+445,microsoft-ds,open,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,crackmapexec|enum4linux|metasploit,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,smbclient -L //<target>
+161,snmp,filtered,CVE-2002-0012,nmap,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap|mongo|metasploit,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,open,Weak Credentials|CVE-2017-0144|SMBv1 Enabled,smbclient|metasploit,Enumerate SMB shares,enum4linux <target>
+80,http,closed,SQL Injection,nikto|burpsuite|sqlmap|gobuster,Enumerate directories|Test login forms,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+6379,redis,open,Unauthenticated Redis Access,nmap|redis-cli,Check unauthenticated access,redis-cli -h <target>
+443,https,open,Weak TLS|SSL Misconfiguration,testssl,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+80,http,open,SQL Injection|XSS|Directory Listing,burpsuite|sqlmap,Test login forms,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+22,ssh,open,Weak Password,ssh-audit|hydra|nmap,Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>|ssh-audit <target>
+22,ssh,closed,CVE-2018-15473|Default Credentials|Weak Password,nmap|metasploit|hydra|ssh-audit,Brute force SSH login|Check SSH version,ssh-audit <target>
+3389,rdp,closed,Weak Encryption|BlueKeep,nmap,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,filtered,Weak Encryption,rdp-sec-check,Check RDP encryption,rdp-sec-check <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,enum4linux|metasploit|crackmapexec,Enumerate SMB shares,crackmapexec smb <target>
+445,microsoft-ds,filtered,SMBv1 Enabled|Weak Credentials,crackmapexec|smbclient|metasploit,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,smbclient -L //<target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,redis-cli|metasploit|nmap,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+27017,mongodb,open,Unauthenticated MongoDB|Weak Authentication,nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+161,snmp,closed,CVE-2002-0012,onesixtyone,Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+80,http,closed,Directory Listing|SQL Injection|CVE-2021-41773|XSS,sqlmap|nikto|burpsuite,Enumerate directories|Check web vulnerabilities|Test login forms,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+21,ftp,open,CVE-2011-2523|Anonymous Login,metasploit|hydra|nmap|ftp,Brute force credentials|Check anonymous access|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,nmap,Enumerate Redis configuration,redis-cli -h <target>
+443,https,filtered,Heartbleed|Weak TLS|SSL Misconfiguration,sslscan|testssl|nikto,Check TLS configuration,sslscan <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,metasploit|mongo,Check authentication settings|Enumerate databases,mongo --host <target>
+3306,mysql,open,CVE-2012-2122,sqlmap|nmap|mysql-client,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+443,https,open,Weak TLS,nikto|testssl,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+22,ssh,filtered,CVE-2018-15473|Weak Password|Default Credentials,ssh-audit|hydra|metasploit,Check SSH version|Enumerate supported algorithms,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+443,https,filtered,Weak TLS|Heartbleed,sslscan,Scan SSL vulnerabilities,testssl.sh <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,nmap|redis-cli|metasploit,Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+443,https,closed,SSL Misconfiguration|Heartbleed,nikto|sslscan,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+445,microsoft-ds,open,SMBv1 Enabled,metasploit|smbclient,Exploit SMB vulnerability,smbclient -L //<target>|crackmapexec smb <target>
+27017,mongodb,closed,Unauthenticated MongoDB|Weak Authentication,nmap|metasploit|mongo,Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+3389,rdp,open,Weak Encryption|BlueKeep,nmap|metasploit|rdp-sec-check,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,filtered,Weak Password|Anonymous Login|CVE-2011-2523,metasploit|hydra|nmap,Check anonymous access|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+443,https,closed,SSL Misconfiguration,testssl,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,snmpwalk,Check default community strings,snmpwalk -v2c -c public <target>
+21,ftp,open,CVE-2011-2523|Weak Password|Anonymous Login,nmap,Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+22,ssh,closed,Weak Password|Default Credentials,metasploit|ssh-audit,Enumerate supported algorithms|Brute force SSH login|Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+22,ssh,closed,Weak Password|Default Credentials,ssh-audit|nmap|metasploit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+445,microsoft-ds,filtered,SMBv1 Enabled|CVE-2017-0144,enum4linux|smbclient|metasploit,Check SMB version|Enumerate SMB shares,enum4linux <target>|smbclient -L //<target>|crackmapexec smb <target>
+21,ftp,closed,Weak Password,nmap|metasploit|hydra|ftp,Brute force credentials|Enumerate FTP files,ftp <target>
+443,https,open,Heartbleed|SSL Misconfiguration|Weak TLS,sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>|testssl.sh <target>
+3306,mysql,open,CVE-2012-2122,mysql-client|nmap|sqlmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+21,ftp,closed,Weak Password|CVE-2011-2523,metasploit,Check anonymous access|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+21,ftp,filtered,CVE-2011-2523,hydra|metasploit|nmap|ftp,Brute force credentials|Check anonymous access,ftp <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check|metasploit,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,filtered,SQL Injection|CVE-2021-41773,dirb|burpsuite|sqlmap|nikto,Check web vulnerabilities|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,nmap|mongo|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,open,SMBv1 Enabled,smbclient|enum4linux,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+443,https,closed,Heartbleed,testssl|sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+3389,rdp,open,Weak Encryption|BlueKeep,metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+161,snmp,open,CVE-2002-0012,nmap|snmpwalk,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3389,rdp,open,BlueKeep,rdp-sec-check,Check RDP encryption,rdp-sec-check <target>
+22,ssh,open,Weak Password|CVE-2018-15473|Default Credentials,hydra|metasploit,Check SSH version|Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,nmap|metasploit,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+445,microsoft-ds,closed,SMBv1 Enabled,crackmapexec|smbclient|enum4linux,Check SMB version,crackmapexec smb <target>
+3389,rdp,closed,BlueKeep,metasploit|nmap|rdp-sec-check,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3306,mysql,closed,Weak Password,nmap|sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+443,https,open,SSL Misconfiguration|Weak TLS|Heartbleed,testssl,Check TLS configuration,sslscan <target>|testssl.sh <target>
+80,http,closed,XSS|SQL Injection|CVE-2021-41773|Directory Listing,dirb|burpsuite|sqlmap|gobuster,Enumerate directories|Test login forms|Check web vulnerabilities,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+3389,rdp,filtered,BlueKeep|Weak Encryption,rdp-sec-check,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,closed,SQL Injection|CVE-2021-41773|XSS|Directory Listing,dirb,Test login forms|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check|metasploit,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,filtered,CVE-2011-2523|Weak Password|Anonymous Login,ftp|hydra,Check anonymous access|Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+3306,mysql,closed,Weak Password|CVE-2012-2122,sqlmap|mysql-client|nmap,Enumerate databases,mysql -h <target> -u root -p
+3306,mysql,filtered,CVE-2012-2122|Weak Password,mysql-client|sqlmap,Test default credentials,nmap --script mysql-info -p 3306 <target>
+22,ssh,closed,Default Credentials|Weak Password,hydra|metasploit,Check SSH version|Enumerate supported algorithms|Brute force SSH login,nmap -sV -p 22 <target>
+443,https,open,Weak TLS,nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+21,ftp,open,CVE-2011-2523,nmap|metasploit|hydra,Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+6379,redis,open,Unauthenticated Redis Access,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+445,microsoft-ds,filtered,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,metasploit|enum4linux,Exploit SMB vulnerability|Enumerate SMB shares,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+22,ssh,filtered,Default Credentials,nmap|hydra,Brute force SSH login,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+161,snmp,open,Public Community String|CVE-2002-0012,onesixtyone,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+21,ftp,filtered,CVE-2011-2523|Anonymous Login|Weak Password,ftp|metasploit|hydra,Enumerate FTP files,nmap -sV -p 21 <target>|ftp <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,nmap,Check unauthenticated access,nmap -sV -p 6379 <target>
+22,ssh,closed,CVE-2018-15473|Default Credentials|Weak Password,ssh-audit,Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,redis-cli|metasploit|nmap,Check unauthenticated access,nmap -sV -p 6379 <target>
+443,https,filtered,SSL Misconfiguration,sslscan|nikto|testssl,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+161,snmp,closed,Public Community String,onesixtyone|nmap,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+80,http,closed,CVE-2021-41773,burpsuite,Enumerate directories|Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,closed,Default Credentials|CVE-2018-15473|Weak Password,ssh-audit|metasploit,Check SSH version,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+443,https,closed,Heartbleed|Weak TLS|SSL Misconfiguration,sslscan|nikto,Check TLS configuration,sslscan <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+6379,redis,filtered,Unauthenticated Redis Access,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,filtered,Public Community String,snmpwalk|nmap,Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+445,microsoft-ds,filtered,CVE-2017-0144,metasploit,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled|Weak Credentials,smbclient|metasploit|crackmapexec|enum4linux,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>|crackmapexec smb <target>
+21,ftp,closed,Anonymous Login|Weak Password,ftp,Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+80,http,open,Directory Listing|SQL Injection|CVE-2021-41773|XSS,burpsuite|sqlmap,Test login forms|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,open,Weak Password,hydra|metasploit|ssh-audit,Check SSH version|Brute force SSH login,nmap -sV -p 22 <target>|ssh-audit <target>
+161,snmp,open,CVE-2002-0012|Public Community String,nmap|onesixtyone,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+22,ssh,filtered,Weak Password|CVE-2018-15473|Default Credentials,nmap|metasploit,Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>
+22,ssh,closed,Default Credentials|CVE-2018-15473,metasploit|hydra|ssh-audit,Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+21,ftp,open,CVE-2011-2523|Anonymous Login,metasploit|ftp,Enumerate FTP files|Brute force credentials,ftp <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,snmpwalk|onesixtyone,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+445,microsoft-ds,open,Weak Credentials|CVE-2017-0144|SMBv1 Enabled,smbclient|enum4linux,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,crackmapexec smb <target>
+445,microsoft-ds,open,Weak Credentials,enum4linux|crackmapexec,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>
+3389,rdp,closed,BlueKeep,metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+22,ssh,filtered,Weak Password,hydra|ssh-audit,Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+21,ftp,open,CVE-2011-2523|Anonymous Login,ftp,Brute force credentials,ftp <target>
+3389,rdp,open,BlueKeep|Weak Encryption,metasploit|rdp-sec-check|nmap,Check RDP encryption|Test remote access security,rdp-sec-check <target>
+443,https,closed,SSL Misconfiguration|Heartbleed,testssl|sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+27017,mongodb,open,Unauthenticated MongoDB,mongo|nmap,Check authentication settings|Enumerate databases,mongo --host <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,nmap|metasploit|redis-cli,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,filtered,SSL Misconfiguration,sslscan,Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,metasploit|redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+443,https,closed,Heartbleed|SSL Misconfiguration|Weak TLS,sslscan|testssl,Check TLS configuration,testssl.sh <target>|sslscan <target>
+3306,mysql,filtered,CVE-2012-2122,mysql-client|nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+27017,mongodb,filtered,Weak Authentication,mongo|nmap|metasploit,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,mysql-client|nmap,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client|sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,snmpwalk|nmap|onesixtyone,Enumerate SNMP values,snmpwalk -v2c -c public <target>
+21,ftp,closed,Weak Password|Anonymous Login|CVE-2011-2523,metasploit|ftp|hydra,Enumerate FTP files,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,open,CVE-2018-15473|Default Credentials|Weak Password,metasploit|ssh-audit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|metasploit,Check RDP encryption,rdp-sec-check <target>
+3389,rdp,closed,Weak Encryption|BlueKeep,metasploit,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap|mysql-client|sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+80,http,open,SQL Injection|CVE-2021-41773|XSS|Directory Listing,burpsuite,Check web vulnerabilities,nikto -h http://<target>
+22,ssh,open,Default Credentials,nmap,Check SSH version|Brute force SSH login,ssh-audit <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,snmpwalk|nmap|onesixtyone,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+27017,mongodb,filtered,Weak Authentication,metasploit|nmap|mongo,Check authentication settings|Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+80,http,open,Directory Listing,dirb,Test login forms|Enumerate directories|Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+161,snmp,open,Public Community String,onesixtyone|snmpwalk|nmap,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk|onesixtyone,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+443,https,filtered,Heartbleed|SSL Misconfiguration|Weak TLS,testssl|sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+161,snmp,closed,Public Community String,onesixtyone|nmap|snmpwalk,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+21,ftp,open,Anonymous Login|CVE-2011-2523,nmap,Check anonymous access|Brute force credentials|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>
+3306,mysql,closed,CVE-2012-2122|Weak Password,nmap|mysql-client,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+80,http,open,XSS|SQL Injection|Directory Listing,sqlmap|burpsuite,Check web vulnerabilities|Enumerate directories,sqlmap -u http://<target>/login.php?id=1
+6379,redis,closed,Unauthenticated Redis Access,nmap,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+6379,redis,filtered,Remote Code Execution,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,sqlmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+80,http,filtered,XSS,burpsuite,Check web vulnerabilities|Test login forms|Enumerate directories,nikto -h http://<target>
+443,https,filtered,Weak TLS|Heartbleed|SSL Misconfiguration,testssl,Check TLS configuration,testssl.sh <target>
+21,ftp,open,Anonymous Login|CVE-2011-2523|Weak Password,ftp|metasploit|hydra,Check anonymous access|Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|ftp <target>
+22,ssh,open,CVE-2018-15473|Weak Password,nmap|ssh-audit,Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+3389,rdp,open,Weak Encryption|BlueKeep,rdp-sec-check|nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+3389,rdp,closed,Weak Encryption,nmap|metasploit|rdp-sec-check,Check RDP encryption|Test remote access security,rdp-sec-check <target>
+445,microsoft-ds,filtered,Weak Credentials,enum4linux|smbclient|metasploit,Check SMB version|Enumerate SMB shares,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check,Check RDP encryption,rdp-sec-check <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled|Weak Credentials,crackmapexec|smbclient,Enumerate SMB shares,enum4linux <target>
+27017,mongodb,open,Unauthenticated MongoDB,metasploit|nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3306,mysql,filtered,Weak Password,nmap|sqlmap|mysql-client,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,crackmapexec|metasploit|smbclient,Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,metasploit|nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,open,Default Credentials|Weak Password|CVE-2018-15473,hydra|nmap|ssh-audit|metasploit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,nmap -sV -p 22 <target>
+22,ssh,filtered,Weak Password|Default Credentials,hydra,Brute force SSH login|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>|ssh-audit <target>
+21,ftp,filtered,CVE-2011-2523|Anonymous Login,hydra|nmap,Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+161,snmp,closed,Public Community String|CVE-2002-0012,onesixtyone|snmpwalk|nmap,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+22,ssh,closed,CVE-2018-15473,nmap|hydra|metasploit,Enumerate supported algorithms,nmap -sV -p 22 <target>
+80,http,closed,SQL Injection,burpsuite|sqlmap|gobuster|dirb|nikto,Check web vulnerabilities|Test login forms|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+80,http,open,Directory Listing|SQL Injection,burpsuite|sqlmap|dirb,Test login forms|Check web vulnerabilities|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration,redis-cli -h <target>
+3306,mysql,filtered,CVE-2012-2122,mysql-client|nmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+80,http,open,Directory Listing,sqlmap|burpsuite|gobuster|dirb,Test login forms|Enumerate directories|Check web vulnerabilities,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+80,http,closed,XSS|CVE-2021-41773,dirb|gobuster|nikto|burpsuite|sqlmap,Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+445,microsoft-ds,open,SMBv1 Enabled|Weak Credentials,crackmapexec|smbclient|metasploit,Enumerate SMB shares,enum4linux <target>
+27017,mongodb,open,Weak Authentication,mongo|metasploit|nmap,Enumerate databases|Check authentication settings,mongo --host <target>
+6379,redis,closed,Remote Code Execution|Unauthenticated Redis Access,metasploit|nmap,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,onesixtyone|nmap,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+445,microsoft-ds,closed,Weak Credentials|CVE-2017-0144|SMBv1 Enabled,crackmapexec|metasploit,Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>|enum4linux <target>
+443,https,closed,SSL Misconfiguration|Heartbleed,testssl|sslscan|nikto,Scan SSL vulnerabilities,testssl.sh <target>
+21,ftp,filtered,CVE-2011-2523|Weak Password|Anonymous Login,nmap|metasploit|ftp|hydra,Brute force credentials|Enumerate FTP files|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,filtered,Anonymous Login,hydra,Check anonymous access,ftp <target>|nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,metasploit|redis-cli,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+443,https,filtered,SSL Misconfiguration,nikto|testssl,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+80,http,open,Directory Listing|XSS,sqlmap|gobuster|burpsuite|dirb,Test login forms|Check web vulnerabilities|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>
+22,ssh,open,CVE-2018-15473|Weak Password|Default Credentials,hydra,Enumerate supported algorithms|Check SSH version|Brute force SSH login,ssh-audit <target>|nmap -sV -p 22 <target>
+22,ssh,closed,Default Credentials|Weak Password,hydra|ssh-audit,Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,metasploit,Check RDP encryption|Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,metasploit|mongo,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+443,https,open,Heartbleed|Weak TLS|SSL Misconfiguration,sslscan,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>|sslscan <target>
+3306,mysql,open,Weak Password,sqlmap|mysql-client,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+445,microsoft-ds,open,Weak Credentials,smbclient|crackmapexec|enum4linux|metasploit,Check SMB version|Exploit SMB vulnerability,enum4linux <target>|crackmapexec smb <target>
+161,snmp,open,CVE-2002-0012|Public Community String,nmap|snmpwalk|onesixtyone,Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+443,https,filtered,Heartbleed|Weak TLS,nikto,Check TLS configuration,testssl.sh <target>|sslscan <target>
+27017,mongodb,closed,Unauthenticated MongoDB|Weak Authentication,mongo|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>
+6379,redis,filtered,Unauthenticated Redis Access,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3389,rdp,filtered,BlueKeep,rdp-sec-check|metasploit|nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,open,Weak Password|Default Credentials|CVE-2018-15473,nmap|hydra|ssh-audit|metasploit,Brute force SSH login|Check SSH version|Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+22,ssh,open,Weak Password,hydra,Brute force SSH login,nmap -sV -p 22 <target>
+443,https,open,SSL Misconfiguration,nikto|testssl,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,mysql-client,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+3389,rdp,filtered,BlueKeep|Weak Encryption,rdp-sec-check|metasploit|nmap,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap|metasploit,Check authentication settings,mongo --host <target>
+445,microsoft-ds,filtered,SMBv1 Enabled|Weak Credentials,metasploit|smbclient,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+161,snmp,closed,CVE-2002-0012,onesixtyone,Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,nmap,Enumerate databases|Check authentication settings,mongo --host <target>
+80,http,open,SQL Injection|CVE-2021-41773,dirb,Enumerate directories|Test login forms,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+3306,mysql,closed,Weak Password|CVE-2012-2122,mysql-client|sqlmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+80,http,closed,XSS|Directory Listing,sqlmap|nikto|dirb,Test login forms|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+21,ftp,open,Weak Password|CVE-2011-2523,ftp|nmap|hydra,Enumerate FTP files|Brute force credentials|Check anonymous access,ftp <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,metasploit|nmap,Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,closed,BlueKeep,nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,metasploit|nmap|redis-cli,Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,metasploit|nmap,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,redis-cli,Check unauthenticated access,redis-cli -h <target>
+3306,mysql,filtered,Weak Password,nmap|sqlmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,metasploit|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,closed,CVE-2002-0012,nmap,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,nmap|sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+445,microsoft-ds,filtered,SMBv1 Enabled|Weak Credentials,enum4linux,Check SMB version|Exploit SMB vulnerability,crackmapexec smb <target>|smbclient -L //<target>|enum4linux <target>
+161,snmp,open,Public Community String|CVE-2002-0012,nmap|snmpwalk,Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+27017,mongodb,closed,Weak Authentication,mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+80,http,filtered,Directory Listing,dirb|nikto|gobuster|sqlmap,Test login forms|Enumerate directories|Check web vulnerabilities,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,open,Weak Password|CVE-2018-15473,ssh-audit|metasploit|nmap,Brute force SSH login|Enumerate supported algorithms|Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+3306,mysql,filtered,CVE-2012-2122,sqlmap|mysql-client|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+3389,rdp,filtered,BlueKeep,metasploit|rdp-sec-check|nmap,Test remote access security,rdp-sec-check <target>
+3389,rdp,open,Weak Encryption,nmap|rdp-sec-check|metasploit,Check RDP encryption,rdp-sec-check <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+3389,rdp,closed,Weak Encryption|BlueKeep,metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+21,ftp,closed,Anonymous Login|Weak Password|CVE-2011-2523,metasploit|ftp|hydra|nmap,Check anonymous access|Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>|nmap -sV -p 21 <target>
+80,http,open,CVE-2021-41773|XSS|SQL Injection,sqlmap|nikto|burpsuite,Test login forms|Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+3389,rdp,open,Weak Encryption,rdp-sec-check,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,open,Weak Encryption,metasploit|rdp-sec-check,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,closed,Remote Code Execution,nmap,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>
+22,ssh,closed,CVE-2018-15473|Default Credentials,metasploit|hydra|ssh-audit,Enumerate supported algorithms|Brute force SSH login|Check SSH version,nmap -sV -p 22 <target>
+80,http,filtered,Directory Listing,dirb|sqlmap|gobuster|nikto|burpsuite,Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,metasploit|nmap|redis-cli,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+80,http,open,SQL Injection|CVE-2021-41773,sqlmap|nikto|burpsuite,Test login forms,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+21,ftp,filtered,CVE-2011-2523,hydra|metasploit|ftp,Check anonymous access|Brute force credentials|Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,nmap|mongo|metasploit,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,filtered,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,metasploit|enum4linux,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,enum4linux <target>|crackmapexec smb <target>
+22,ssh,closed,Default Credentials|CVE-2018-15473|Weak Password,ssh-audit|hydra|nmap|metasploit,Brute force SSH login|Enumerate supported algorithms|Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,nmap|onesixtyone,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,nmap|metasploit|redis-cli,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+21,ftp,open,Anonymous Login,nmap|ftp,Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap|nmap,Enumerate databases,mysql -h <target> -u root -p
+22,ssh,open,Default Credentials|Weak Password|CVE-2018-15473,nmap,Check SSH version|Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>
+443,https,closed,Heartbleed|SSL Misconfiguration|Weak TLS,testssl|sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>|testssl.sh <target>
+3389,rdp,open,BlueKeep,nmap,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,crackmapexec|metasploit|enum4linux|smbclient,Check SMB version,smbclient -L //<target>
+443,https,closed,SSL Misconfiguration|Weak TLS|Heartbleed,testssl|sslscan|nikto,Scan SSL vulnerabilities,testssl.sh <target>
+443,https,closed,SSL Misconfiguration|Weak TLS|Heartbleed,testssl,Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+6379,redis,filtered,Remote Code Execution,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+22,ssh,filtered,CVE-2018-15473,hydra|metasploit|nmap,Enumerate supported algorithms,ssh-audit <target>|nmap -sV -p 22 <target>
+3389,rdp,closed,BlueKeep,rdp-sec-check|nmap,Check RDP encryption,rdp-sec-check <target>
+22,ssh,filtered,Weak Password|CVE-2018-15473,metasploit|ssh-audit,Brute force SSH login|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+445,microsoft-ds,open,SMBv1 Enabled|Weak Credentials,crackmapexec|enum4linux|smbclient|metasploit,Check SMB version|Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>
+80,http,closed,SQL Injection|CVE-2021-41773,burpsuite|gobuster|dirb,Check web vulnerabilities|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+22,ssh,open,Weak Password,hydra|ssh-audit,Enumerate supported algorithms|Check SSH version|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>
+21,ftp,filtered,Weak Password|CVE-2011-2523,ftp,Enumerate FTP files|Check anonymous access|Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,metasploit|rdp-sec-check,Test remote access security,rdp-sec-check <target>
+22,ssh,filtered,Default Credentials,hydra|nmap|metasploit|ssh-audit,Enumerate supported algorithms,ssh-audit <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,mysql-client,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,nmap,Test default credentials,nmap --script mysql-info -p 3306 <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+21,ftp,filtered,CVE-2011-2523,ftp|nmap,Enumerate FTP files|Check anonymous access,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,closed,Weak Password|Anonymous Login,ftp|metasploit,Check anonymous access|Enumerate FTP files,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+443,https,closed,Weak TLS|SSL Misconfiguration,testssl|sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+21,ftp,open,Anonymous Login|Weak Password,hydra|nmap,Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,mongo|metasploit,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+443,https,closed,Heartbleed|Weak TLS,sslscan|testssl|nikto,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+21,ftp,open,Weak Password,metasploit|ftp,Brute force credentials,ftp <target>
+3306,mysql,filtered,CVE-2012-2122,nmap,Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+27017,mongodb,filtered,Unauthenticated MongoDB,mongo|nmap,Check authentication settings,mongo --host <target>
+80,http,open,SQL Injection|XSS|CVE-2021-41773|Directory Listing,nikto|gobuster,Check web vulnerabilities|Enumerate directories|Test login forms,nikto -h http://<target>
+6379,redis,open,Remote Code Execution,metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+80,http,closed,SQL Injection|XSS|Directory Listing,gobuster,Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+6379,redis,closed,Remote Code Execution|Unauthenticated Redis Access,metasploit|nmap,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+445,microsoft-ds,closed,CVE-2017-0144|Weak Credentials,enum4linux|crackmapexec|smbclient,Exploit SMB vulnerability|Check SMB version,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+27017,mongodb,filtered,Unauthenticated MongoDB,mongo|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client|sqlmap|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523,metasploit|ftp|nmap,Enumerate FTP files|Brute force credentials|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>|ftp <target>
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,nmap,Check authentication settings|Enumerate databases,mongo --host <target>
+27017,mongodb,open,Unauthenticated MongoDB,mongo,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk|nmap|onesixtyone,Check default community strings,snmpwalk -v2c -c public <target>
+22,ssh,open,CVE-2018-15473|Default Credentials|Weak Password,ssh-audit|metasploit|nmap,Brute force SSH login|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+6379,redis,filtered,Unauthenticated Redis Access,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,open,Public Community String|CVE-2002-0012,snmpwalk|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>
+80,http,open,XSS|Directory Listing|CVE-2021-41773,sqlmap|gobuster,Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+443,https,filtered,Weak TLS|Heartbleed|SSL Misconfiguration,sslscan,Scan SSL vulnerabilities,testssl.sh <target>
+6379,redis,filtered,Remote Code Execution|Unauthenticated Redis Access,redis-cli|nmap|metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,open,Weak TLS|Heartbleed|SSL Misconfiguration,testssl|nikto|sslscan,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>
+80,http,open,SQL Injection|XSS|Directory Listing,nikto,Enumerate directories,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+27017,mongodb,closed,Unauthenticated MongoDB,metasploit|mongo,Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+21,ftp,open,CVE-2011-2523,nmap|metasploit|hydra|ftp,Enumerate FTP files|Check anonymous access|Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled,smbclient|enum4linux|metasploit|crackmapexec,Enumerate SMB shares|Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>|enum4linux <target>
+6379,redis,filtered,Remote Code Execution,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,mongo|nmap,Enumerate databases,mongo --host <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,nmap|sqlmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+22,ssh,closed,Default Credentials|Weak Password,metasploit|ssh-audit|nmap|hydra,Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+443,https,filtered,SSL Misconfiguration|Heartbleed,nikto|sslscan|testssl,Scan SSL vulnerabilities,sslscan <target>
+3389,rdp,filtered,BlueKeep,nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,closed,Default Credentials|CVE-2018-15473|Weak Password,ssh-audit|hydra|nmap|metasploit,Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+6379,redis,open,Unauthenticated Redis Access,nmap|metasploit,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3306,mysql,filtered,CVE-2012-2122,mysql-client|sqlmap|nmap,Enumerate databases,mysql -h <target> -u root -p
+27017,mongodb,open,Weak Authentication|Unauthenticated MongoDB,mongo|metasploit,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3389,rdp,open,BlueKeep,rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+27017,mongodb,closed,Weak Authentication,mongo,Enumerate databases,mongo --host <target>
+80,http,open,SQL Injection|CVE-2021-41773|XSS,gobuster|burpsuite|sqlmap|nikto,Enumerate directories|Test login forms|Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,open,CVE-2018-15473|Weak Password|Default Credentials,nmap|hydra,Brute force SSH login|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+22,ssh,open,Weak Password|Default Credentials|CVE-2018-15473,nmap|metasploit|hydra|ssh-audit,Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client|sqlmap|nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+80,http,closed,SQL Injection|Directory Listing|CVE-2021-41773|XSS,nikto|gobuster,Test login forms|Check web vulnerabilities|Enumerate directories,gobuster dir -u http://<target> -w wordlist.txt
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,redis-cli|metasploit|nmap,Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3306,mysql,closed,CVE-2012-2122,nmap,Test default credentials,nmap --script mysql-info -p 3306 <target>
+27017,mongodb,filtered,Unauthenticated MongoDB,nmap|mongo,Enumerate databases|Check authentication settings,mongo --host <target>
+21,ftp,open,Weak Password|CVE-2011-2523,nmap,Check anonymous access|Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap|onesixtyone|snmpwalk,Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+22,ssh,open,Weak Password,metasploit,Enumerate supported algorithms|Brute force SSH login,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,snmpwalk|nmap,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>
+161,snmp,open,CVE-2002-0012|Public Community String,nmap,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+3389,rdp,open,Weak Encryption|BlueKeep,metasploit|rdp-sec-check|nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+22,ssh,closed,CVE-2018-15473,metasploit|nmap|hydra|ssh-audit,Check SSH version,hydra -l root -P rockyou.txt ssh://<target>
+80,http,open,XSS|CVE-2021-41773|Directory Listing,dirb|burpsuite,Enumerate directories|Test login forms|Check web vulnerabilities,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+3306,mysql,filtered,Weak Password,nmap|sqlmap,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,filtered,Remote Code Execution,redis-cli,Check unauthenticated access,nmap -sV -p 6379 <target>
+21,ftp,filtered,Weak Password,metasploit|hydra|nmap|ftp,Brute force credentials|Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+27017,mongodb,open,Unauthenticated MongoDB,mongo|nmap,Enumerate databases,mongo --host <target>
+21,ftp,closed,CVE-2011-2523|Anonymous Login|Weak Password,nmap|metasploit|ftp|hydra,Enumerate FTP files|Check anonymous access|Brute force credentials,ftp <target>
+161,snmp,filtered,Public Community String,snmpwalk|onesixtyone,Check default community strings,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+80,http,open,Directory Listing,gobuster|sqlmap|nikto|burpsuite|dirb,Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+21,ftp,closed,CVE-2011-2523,ftp|hydra|metasploit|nmap,Check anonymous access|Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+3389,rdp,open,Weak Encryption|BlueKeep,nmap|rdp-sec-check|metasploit,Check RDP encryption|Test remote access security,rdp-sec-check <target>
+22,ssh,closed,Default Credentials,nmap,Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,onesixtyone|snmpwalk|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+21,ftp,open,CVE-2011-2523|Anonymous Login|Weak Password,ftp|nmap|hydra|metasploit,Check anonymous access|Enumerate FTP files,ftp <target>
+445,microsoft-ds,open,SMBv1 Enabled|CVE-2017-0144|Weak Credentials,smbclient|enum4linux|crackmapexec|metasploit,Exploit SMB vulnerability|Check SMB version,smbclient -L //<target>|crackmapexec smb <target>|enum4linux <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,enum4linux|smbclient|crackmapexec,Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>|crackmapexec smb <target>
+3306,mysql,filtered,CVE-2012-2122,nmap|mysql-client,Test default credentials|Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3306,mysql,open,Weak Password|CVE-2012-2122,mysql-client|nmap|sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+22,ssh,closed,Weak Password,nmap,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>|ssh-audit <target>
+443,https,closed,Weak TLS|SSL Misconfiguration|Heartbleed,testssl|sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+161,snmp,open,CVE-2002-0012|Public Community String,onesixtyone|snmpwalk|nmap,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+80,http,closed,XSS,dirb|gobuster,Check web vulnerabilities|Test login forms,nikto -h http://<target>
+445,microsoft-ds,open,SMBv1 Enabled|CVE-2017-0144,enum4linux,Exploit SMB vulnerability|Enumerate SMB shares|Check SMB version,crackmapexec smb <target>|smbclient -L //<target>
+3389,rdp,closed,BlueKeep|Weak Encryption,metasploit|rdp-sec-check|nmap,Check RDP encryption|Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+161,snmp,filtered,CVE-2002-0012,snmpwalk,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,metasploit|enum4linux|smbclient,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,enum4linux <target>|crackmapexec smb <target>
+445,microsoft-ds,open,SMBv1 Enabled|CVE-2017-0144|Weak Credentials,smbclient|crackmapexec|metasploit|enum4linux,Exploit SMB vulnerability,smbclient -L //<target>|crackmapexec smb <target>|enum4linux <target>
+21,ftp,filtered,CVE-2011-2523,metasploit|nmap|hydra|ftp,Brute force credentials|Check anonymous access|Enumerate FTP files,nmap -sV -p 21 <target>
+443,https,open,SSL Misconfiguration,testssl,Check TLS configuration,testssl.sh <target>|sslscan <target>
+27017,mongodb,closed,Weak Authentication|Unauthenticated MongoDB,nmap|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,metasploit,Check unauthenticated access,redis-cli -h <target>
+22,ssh,closed,CVE-2018-15473|Weak Password|Default Credentials,hydra|metasploit|ssh-audit|nmap,Enumerate supported algorithms|Brute force SSH login|Check SSH version,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523|Weak Password,ftp,Check anonymous access|Brute force credentials,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+443,https,open,SSL Misconfiguration|Heartbleed|Weak TLS,sslscan,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+3389,rdp,closed,BlueKeep,rdp-sec-check,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+443,https,closed,SSL Misconfiguration|Heartbleed|Weak TLS,sslscan|testssl,Check TLS configuration,testssl.sh <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap|snmpwalk|onesixtyone,Check default community strings,snmpwalk -v2c -c public <target>
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+445,microsoft-ds,open,Weak Credentials|CVE-2017-0144,crackmapexec|metasploit,Check SMB version,enum4linux <target>|smbclient -L //<target>|crackmapexec smb <target>
+161,snmp,filtered,Public Community String|CVE-2002-0012,snmpwalk,Check default community strings,onesixtyone -c community.txt <target>
+161,snmp,open,Public Community String,onesixtyone|nmap,Check default community strings|Enumerate SNMP values,onesixtyone -c community.txt <target>
+6379,redis,open,Remote Code Execution|Unauthenticated Redis Access,metasploit|redis-cli,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+22,ssh,filtered,Weak Password,hydra|nmap,Brute force SSH login|Enumerate supported algorithms,nmap -sV -p 22 <target>|hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+445,microsoft-ds,closed,SMBv1 Enabled|CVE-2017-0144,crackmapexec|metasploit|smbclient,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,enum4linux <target>
+443,https,filtered,SSL Misconfiguration|Heartbleed,nikto,Check TLS configuration,testssl.sh <target>
+80,http,open,Directory Listing|CVE-2021-41773|SQL Injection,sqlmap|dirb,Check web vulnerabilities|Enumerate directories|Test login forms,nikto -h http://<target>
+6379,redis,closed,Remote Code Execution|Unauthenticated Redis Access,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>
+443,https,closed,Weak TLS|SSL Misconfiguration|Heartbleed,nikto|testssl|sslscan,Check TLS configuration,testssl.sh <target>
+443,https,filtered,SSL Misconfiguration|Weak TLS,testssl,Check TLS configuration,testssl.sh <target>
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,mongo|nmap|metasploit,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+22,ssh,closed,Default Credentials|CVE-2018-15473,nmap|hydra|metasploit,Brute force SSH login,ssh-audit <target>
+27017,mongodb,closed,Unauthenticated MongoDB|Weak Authentication,nmap|mongo|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3306,mysql,closed,CVE-2012-2122,sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3389,rdp,open,BlueKeep|Weak Encryption,metasploit,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+80,http,closed,CVE-2021-41773|SQL Injection,burpsuite|dirb,Check web vulnerabilities|Enumerate directories|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+3306,mysql,open,Weak Password,nmap|mysql-client|sqlmap,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+443,https,filtered,Heartbleed|SSL Misconfiguration|Weak TLS,testssl|sslscan,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+3389,rdp,filtered,BlueKeep,nmap|rdp-sec-check|metasploit,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,filtered,CVE-2018-15473|Weak Password|Default Credentials,nmap,Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3389,rdp,filtered,BlueKeep,rdp-sec-check|metasploit,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+22,ssh,closed,Default Credentials,ssh-audit|metasploit|hydra,Enumerate supported algorithms|Brute force SSH login|Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+445,microsoft-ds,open,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,smbclient|crackmapexec,Enumerate SMB shares,smbclient -L //<target>
+3306,mysql,open,CVE-2012-2122,nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,nmap|metasploit|rdp-sec-check,Test remote access security,rdp-sec-check <target>
+21,ftp,closed,Anonymous Login|CVE-2011-2523|Weak Password,nmap,Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+3306,mysql,open,CVE-2012-2122|Weak Password,sqlmap|mysql-client|nmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>
+445,microsoft-ds,closed,SMBv1 Enabled|Weak Credentials,crackmapexec|enum4linux|metasploit,Exploit SMB vulnerability|Check SMB version|Enumerate SMB shares,crackmapexec smb <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled|CVE-2017-0144,smbclient|enum4linux|crackmapexec|metasploit,Exploit SMB vulnerability,enum4linux <target>|smbclient -L //<target>|crackmapexec smb <target>
+27017,mongodb,open,Weak Authentication,mongo|metasploit|nmap,Enumerate databases|Check authentication settings,mongo --host <target>
+21,ftp,closed,Weak Password,ftp|hydra,Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+445,microsoft-ds,closed,Weak Credentials|SMBv1 Enabled,metasploit|crackmapexec|enum4linux,Check SMB version|Exploit SMB vulnerability|Enumerate SMB shares,smbclient -L //<target>|crackmapexec smb <target>
+27017,mongodb,filtered,Weak Authentication,nmap|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+80,http,filtered,CVE-2021-41773|XSS|SQL Injection,dirb|burpsuite|gobuster|sqlmap|nikto,Enumerate directories,sqlmap -u http://<target>/login.php?id=1
+6379,redis,closed,Unauthenticated Redis Access|Remote Code Execution,nmap,Enumerate Redis configuration|Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+27017,mongodb,closed,Unauthenticated MongoDB|Weak Authentication,metasploit|mongo|nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+80,http,filtered,SQL Injection|XSS|Directory Listing|CVE-2021-41773,burpsuite|nikto|gobuster|dirb|sqlmap,Check web vulnerabilities,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+161,snmp,closed,Public Community String,onesixtyone|nmap|snmpwalk,Check default community strings,onesixtyone -c community.txt <target>
+443,https,filtered,Weak TLS|SSL Misconfiguration|Heartbleed,sslscan|nikto,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+80,http,closed,SQL Injection|Directory Listing,gobuster|sqlmap|nikto|burpsuite|dirb,Test login forms,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+27017,mongodb,filtered,Unauthenticated MongoDB|Weak Authentication,nmap|metasploit|mongo,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,open,Weak Authentication,metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+3389,rdp,filtered,BlueKeep,metasploit,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+6379,redis,open,Unauthenticated Redis Access|Remote Code Execution,redis-cli|metasploit|nmap,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+27017,mongodb,open,Weak Authentication,nmap|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+443,https,open,Heartbleed,sslscan|nikto,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+27017,mongodb,filtered,Weak Authentication,mongo|metasploit|nmap,Check authentication settings|Enumerate databases,mongo --host <target>
+443,https,closed,SSL Misconfiguration,nikto,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>
+22,ssh,filtered,Default Credentials,hydra,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+3389,rdp,closed,Weak Encryption,rdp-sec-check|nmap|metasploit,Check RDP encryption|Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+6379,redis,closed,Unauthenticated Redis Access,nmap|redis-cli|metasploit,Enumerate Redis configuration,nmap -sV -p 6379 <target>
+161,snmp,closed,CVE-2002-0012,onesixtyone|snmpwalk|nmap,Enumerate SNMP values|Check default community strings,onesixtyone -c community.txt <target>
+161,snmp,closed,Public Community String,nmap|snmpwalk|onesixtyone,Enumerate SNMP values,snmpwalk -v2c -c public <target>
+21,ftp,open,CVE-2011-2523|Weak Password,hydra|metasploit,Brute force credentials|Enumerate FTP files|Check anonymous access,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,rdp-sec-check|nmap|metasploit,Test remote access security|Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+80,http,open,CVE-2021-41773|SQL Injection|Directory Listing|XSS,sqlmap|dirb|burpsuite|nikto,Enumerate directories|Test login forms|Check web vulnerabilities,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+445,microsoft-ds,closed,Weak Credentials,enum4linux|metasploit|smbclient,Check SMB version|Enumerate SMB shares|Exploit SMB vulnerability,enum4linux <target>|smbclient -L //<target>
+21,ftp,open,Anonymous Login|Weak Password|CVE-2011-2523,ftp|nmap|metasploit|hydra,Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>|ftp <target>
+3389,rdp,filtered,Weak Encryption,rdp-sec-check|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,metasploit|rdp-sec-check|nmap,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+80,http,closed,CVE-2021-41773|XSS,nikto|gobuster|burpsuite|dirb|sqlmap,Test login forms,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt
+27017,mongodb,filtered,Weak Authentication,metasploit|nmap,Check authentication settings|Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+445,microsoft-ds,filtered,Weak Credentials|SMBv1 Enabled,enum4linux|smbclient|crackmapexec,Exploit SMB vulnerability|Check SMB version,crackmapexec smb <target>
+3389,rdp,closed,Weak Encryption,nmap,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,closed,Directory Listing,nikto|burpsuite,Check web vulnerabilities|Test login forms|Enumerate directories,sqlmap -u http://<target>/login.php?id=1|gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>
+6379,redis,filtered,Remote Code Execution,redis-cli,Check unauthenticated access,nmap -sV -p 6379 <target>|redis-cli -h <target>
+3389,rdp,filtered,Weak Encryption|BlueKeep,rdp-sec-check|metasploit|nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,filtered,SQL Injection,dirb|gobuster|sqlmap|nikto,Enumerate directories|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|nikto -h http://<target>
+6379,redis,open,Remote Code Execution,redis-cli|nmap|metasploit,Check unauthenticated access|Enumerate Redis configuration,redis-cli -h <target>
+3389,rdp,closed,Weak Encryption,metasploit|nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+443,https,filtered,Weak TLS|Heartbleed|SSL Misconfiguration,sslscan|testssl|nikto,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,metasploit,Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+443,https,open,SSL Misconfiguration|Weak TLS,sslscan|testssl,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+21,ftp,closed,Anonymous Login|Weak Password,hydra,Brute force credentials|Enumerate FTP files|Check anonymous access,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,open,Default Credentials,metasploit|nmap|ssh-audit,Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>
+80,http,open,Directory Listing,gobuster,Test login forms|Check web vulnerabilities|Enumerate directories,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+443,https,open,Heartbleed|Weak TLS|SSL Misconfiguration,sslscan|nikto|testssl,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+3306,mysql,closed,CVE-2012-2122,mysql-client|nmap,Test default credentials,mysql -h <target> -u root -p
+445,microsoft-ds,filtered,SMBv1 Enabled,smbclient,Check SMB version|Enumerate SMB shares|Exploit SMB vulnerability,smbclient -L //<target>|enum4linux <target>
+80,http,closed,XSS|CVE-2021-41773|SQL Injection|Directory Listing,sqlmap|burpsuite|nikto|gobuster,Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+22,ssh,open,Weak Password|Default Credentials,nmap|metasploit,Check SSH version,ssh-audit <target>|nmap -sV -p 22 <target>
+27017,mongodb,filtered,Weak Authentication,mongo|nmap|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,closed,Unauthenticated MongoDB,metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+3306,mysql,filtered,CVE-2012-2122,nmap|sqlmap|mysql-client,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+27017,mongodb,closed,Unauthenticated MongoDB,mongo|metasploit,Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+3389,rdp,closed,BlueKeep|Weak Encryption,rdp-sec-check|nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+443,https,filtered,Heartbleed,sslscan,Scan SSL vulnerabilities,sslscan <target>|testssl.sh <target>
+21,ftp,filtered,Anonymous Login|Weak Password,nmap|hydra|metasploit,Check anonymous access|Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+27017,mongodb,open,Unauthenticated MongoDB|Weak Authentication,nmap|metasploit,Enumerate databases,nmap --script mongodb-info -p 27017 <target>
+27017,mongodb,closed,Unauthenticated MongoDB,mongo|metasploit|nmap,Enumerate databases,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+80,http,open,Directory Listing|SQL Injection|CVE-2021-41773,burpsuite|sqlmap|dirb|nikto,Enumerate directories,sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt
+22,ssh,closed,CVE-2018-15473|Default Credentials|Weak Password,metasploit,Check SSH version|Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>
+3389,rdp,open,BlueKeep,nmap|metasploit,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,filtered,Weak Password|CVE-2011-2523,ftp|metasploit|hydra,Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+445,microsoft-ds,filtered,SMBv1 Enabled|Weak Credentials|CVE-2017-0144,crackmapexec,Exploit SMB vulnerability|Enumerate SMB shares,enum4linux <target>|smbclient -L //<target>
+27017,mongodb,open,Weak Authentication,metasploit|nmap,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>|mongo --host <target>
+161,snmp,closed,CVE-2002-0012|Public Community String,nmap|onesixtyone|snmpwalk,Check default community strings|Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3389,rdp,open,BlueKeep|Weak Encryption,metasploit|rdp-sec-check,Test remote access security,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,closed,Anonymous Login|CVE-2011-2523|Weak Password,metasploit|nmap,Brute force credentials,nmap -sV -p 21 <target>|ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+21,ftp,closed,Weak Password|Anonymous Login|CVE-2011-2523,nmap|hydra,Brute force credentials,ftp <target>|nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+22,ssh,filtered,Default Credentials,hydra|metasploit|nmap|ssh-audit,Enumerate supported algorithms|Check SSH version|Brute force SSH login,nmap -sV -p 22 <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+21,ftp,closed,Anonymous Login|CVE-2011-2523|Weak Password,ftp|nmap,Check anonymous access|Brute force credentials|Enumerate FTP files,nmap -sV -p 21 <target>
+3306,mysql,closed,CVE-2012-2122|Weak Password,mysql-client|nmap,Enumerate databases,nmap --script mysql-info -p 3306 <target>
+22,ssh,filtered,Weak Password|CVE-2018-15473|Default Credentials,metasploit|hydra|nmap|ssh-audit,Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+445,microsoft-ds,closed,SMBv1 Enabled,metasploit|smbclient,Check SMB version,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+161,snmp,closed,CVE-2002-0012,nmap,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,mysql-client|nmap|sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+21,ftp,closed,Anonymous Login,ftp|metasploit|hydra,Enumerate FTP files|Brute force credentials,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+443,https,closed,Heartbleed|SSL Misconfiguration,testssl,Scan SSL vulnerabilities,testssl.sh <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,smbclient|enum4linux,Exploit SMB vulnerability,enum4linux <target>|crackmapexec smb <target>
+21,ftp,closed,CVE-2011-2523,ftp|nmap|metasploit|hydra,Enumerate FTP files|Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+21,ftp,open,CVE-2011-2523,ftp|metasploit|nmap,Brute force credentials|Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>
+161,snmp,closed,Public Community String,snmpwalk|nmap|onesixtyone,Enumerate SNMP values,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,sqlmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,mysql-client,Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,rdp-sec-check|nmap,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3306,mysql,filtered,CVE-2012-2122|Weak Password,mysql-client|sqlmap,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+21,ftp,filtered,Weak Password|Anonymous Login,metasploit|ftp,Enumerate FTP files|Brute force credentials|Check anonymous access,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+3389,rdp,open,Weak Encryption|BlueKeep,nmap,Check RDP encryption|Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,open,Weak Encryption,nmap,Test remote access security|Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+445,microsoft-ds,open,SMBv1 Enabled,metasploit,Enumerate SMB shares,smbclient -L //<target>|enum4linux <target>
+445,microsoft-ds,closed,Weak Credentials|CVE-2017-0144,crackmapexec,Check SMB version,crackmapexec smb <target>|enum4linux <target>|smbclient -L //<target>
+443,https,closed,Heartbleed|Weak TLS,nikto,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+3389,rdp,open,Weak Encryption,metasploit|nmap|rdp-sec-check,Check RDP encryption,nmap --script rdp-enum-encryption -p 3389 <target>
+21,ftp,open,CVE-2011-2523,hydra|nmap,Brute force credentials|Enumerate FTP files,ftp <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>
+22,ssh,filtered,Weak Password,nmap|metasploit,Check SSH version|Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+161,snmp,filtered,Public Community String,onesixtyone|snmpwalk|nmap,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+27017,mongodb,closed,Weak Authentication,nmap|metasploit|mongo,Enumerate databases,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+443,https,closed,Weak TLS|Heartbleed|SSL Misconfiguration,testssl|sslscan,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+445,microsoft-ds,open,CVE-2017-0144|SMBv1 Enabled,metasploit|smbclient,Enumerate SMB shares|Check SMB version|Exploit SMB vulnerability,enum4linux <target>|crackmapexec smb <target>|smbclient -L //<target>
+6379,redis,open,Unauthenticated Redis Access,redis-cli,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+21,ftp,filtered,CVE-2011-2523,metasploit,Brute force credentials|Check anonymous access|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+27017,mongodb,filtered,Weak Authentication,nmap|metasploit,Check authentication settings,mongo --host <target>
+445,microsoft-ds,filtered,CVE-2017-0144,crackmapexec|enum4linux,Exploit SMB vulnerability,crackmapexec smb <target>
+3306,mysql,filtered,Weak Password,nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,filtered,Remote Code Execution,redis-cli|nmap,Check unauthenticated access,redis-cli -h <target>|nmap -sV -p 6379 <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,mysql-client|sqlmap,Enumerate databases|Test default credentials,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+22,ssh,closed,Weak Password|CVE-2018-15473,hydra,Brute force SSH login|Check SSH version|Enumerate supported algorithms,hydra -l root -P rockyou.txt ssh://<target>
+80,http,closed,XSS,sqlmap|gobuster|burpsuite|dirb|nikto,Enumerate directories|Check web vulnerabilities,nikto -h http://<target>
+445,microsoft-ds,filtered,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,enum4linux|crackmapexec,Check SMB version|Enumerate SMB shares,crackmapexec smb <target>|smbclient -L //<target>
+6379,redis,filtered,Unauthenticated Redis Access|Remote Code Execution,redis-cli|metasploit,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+22,ssh,filtered,CVE-2018-15473|Weak Password,nmap|metasploit|ssh-audit|hydra,Enumerate supported algorithms,ssh-audit <target>|hydra -l root -P rockyou.txt ssh://<target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,nmap,Enumerate SNMP values,snmpwalk -v2c -c public <target>
+3389,rdp,filtered,Weak Encryption,rdp-sec-check|nmap,Check RDP encryption,rdp-sec-check <target>|nmap --script rdp-enum-encryption -p 3389 <target>
+80,http,closed,XSS|Directory Listing|SQL Injection,nikto|gobuster,Enumerate directories|Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+3306,mysql,filtered,CVE-2012-2122,sqlmap|mysql-client|nmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+21,ftp,closed,Weak Password|CVE-2011-2523,metasploit,Brute force credentials|Enumerate FTP files|Check anonymous access,nmap -sV -p 21 <target>|hydra -L users.txt -P rockyou.txt ftp://<target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,metasploit|mongo,Enumerate databases|Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+161,snmp,filtered,CVE-2002-0012|Public Community String,nmap|snmpwalk|onesixtyone,Check default community strings,onesixtyone -c community.txt <target>
+22,ssh,closed,Default Credentials,ssh-audit|metasploit,Enumerate supported algorithms,ssh-audit <target>
+3389,rdp,filtered,BlueKeep|Weak Encryption,nmap,Check RDP encryption,rdp-sec-check <target>
+443,https,filtered,SSL Misconfiguration|Heartbleed,testssl|nikto,Check TLS configuration,sslscan <target>|testssl.sh <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,nmap|mysql-client,Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,onesixtyone|nmap|snmpwalk,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+27017,mongodb,closed,Weak Authentication,nmap|metasploit,Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
+80,http,filtered,SQL Injection|CVE-2021-41773|XSS,gobuster|nikto|dirb|burpsuite|sqlmap,Enumerate directories|Test login forms|Check web vulnerabilities,nikto -h http://<target>|gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1
+80,http,open,Directory Listing|XSS,burpsuite|gobuster,Test login forms|Enumerate directories,nikto -h http://<target>|sqlmap -u http://<target>/login.php?id=1
+22,ssh,open,Weak Password,ssh-audit|nmap,Check SSH version|Enumerate supported algorithms|Brute force SSH login,hydra -l root -P rockyou.txt ssh://<target>|ssh-audit <target>|nmap -sV -p 22 <target>
+3306,mysql,filtered,Weak Password,nmap,Test default credentials|Enumerate databases,nmap --script mysql-info -p 3306 <target>|mysql -h <target> -u root -p
+27017,mongodb,closed,Unauthenticated MongoDB,nmap|mongo,Enumerate databases|Check authentication settings,mongo --host <target>
+3306,mysql,filtered,Weak Password,mysql-client|sqlmap|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,closed,Remote Code Execution|Unauthenticated Redis Access,redis-cli|nmap,Enumerate Redis configuration,redis-cli -h <target>|nmap -sV -p 6379 <target>
+443,https,open,Weak TLS,nikto|sslscan,Check TLS configuration|Scan SSL vulnerabilities,testssl.sh <target>|sslscan <target>
+22,ssh,open,CVE-2018-15473|Weak Password,nmap|ssh-audit|metasploit|hydra,Brute force SSH login|Enumerate supported algorithms|Check SSH version,hydra -l root -P rockyou.txt ssh://<target>|nmap -sV -p 22 <target>
+445,microsoft-ds,open,SMBv1 Enabled|Weak Credentials|CVE-2017-0144,smbclient|enum4linux|crackmapexec,Enumerate SMB shares|Check SMB version,enum4linux <target>|crackmapexec smb <target>
+80,http,closed,Directory Listing,dirb,Enumerate directories|Check web vulnerabilities|Test login forms,gobuster dir -u http://<target> -w wordlist.txt|sqlmap -u http://<target>/login.php?id=1|nikto -h http://<target>
+21,ftp,open,Anonymous Login|Weak Password,metasploit|hydra,Brute force credentials,hydra -L users.txt -P rockyou.txt ftp://<target>|ftp <target>
+445,microsoft-ds,filtered,Weak Credentials,enum4linux|metasploit,Exploit SMB vulnerability|Check SMB version,enum4linux <target>|crackmapexec smb <target>
+3389,rdp,filtered,Weak Encryption,metasploit|nmap,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>|rdp-sec-check <target>
+3389,rdp,open,BlueKeep,metasploit|nmap|rdp-sec-check,Test remote access security,nmap --script rdp-enum-encryption -p 3389 <target>
+443,https,filtered,SSL Misconfiguration|Weak TLS|Heartbleed,nikto,Scan SSL vulnerabilities|Check TLS configuration,sslscan <target>|testssl.sh <target>
+3306,mysql,filtered,CVE-2012-2122,nmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p
+445,microsoft-ds,closed,Weak Credentials|SMBv1 Enabled,smbclient,Enumerate SMB shares|Check SMB version,smbclient -L //<target>|enum4linux <target>
+27017,mongodb,filtered,Unauthenticated MongoDB,nmap|metasploit,Check authentication settings,mongo --host <target>
+161,snmp,closed,Public Community String|CVE-2002-0012,nmap,Enumerate SNMP values|Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+3306,mysql,open,CVE-2012-2122|Weak Password,mysql-client,Test default credentials|Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+6379,redis,filtered,Remote Code Execution,nmap|metasploit,Enumerate Redis configuration|Check unauthenticated access,nmap -sV -p 6379 <target>
+6379,redis,filtered,Remote Code Execution,redis-cli|nmap,Check unauthenticated access|Enumerate Redis configuration,nmap -sV -p 6379 <target>|redis-cli -h <target>
+161,snmp,closed,Public Community String,nmap|onesixtyone|snmpwalk,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+27017,mongodb,open,Weak Authentication,mongo,Check authentication settings,nmap --script mongodb-info -p 27017 <target>
+21,ftp,filtered,Anonymous Login|CVE-2011-2523|Weak Password,hydra|metasploit,Brute force credentials|Enumerate FTP files,hydra -L users.txt -P rockyou.txt ftp://<target>|nmap -sV -p 21 <target>
+445,microsoft-ds,filtered,Weak Credentials|CVE-2017-0144|SMBv1 Enabled,crackmapexec|smbclient,Check SMB version|Enumerate SMB shares|Exploit SMB vulnerability,enum4linux <target>|smbclient -L //<target>|crackmapexec smb <target>
+445,microsoft-ds,closed,CVE-2017-0144|Weak Credentials|SMBv1 Enabled,crackmapexec|enum4linux|smbclient|metasploit,Check SMB version|Enumerate SMB shares,crackmapexec smb <target>|smbclient -L //<target>|enum4linux <target>
+22,ssh,open,Default Credentials|Weak Password,nmap,Enumerate supported algorithms|Check SSH version,nmap -sV -p 22 <target>|ssh-audit <target>
+3306,mysql,filtered,Weak Password|CVE-2012-2122,sqlmap|nmap,Enumerate databases|Test default credentials,mysql -h <target> -u root -p
+3306,mysql,filtered,Weak Password|CVE-2012-2122,mysql-client|nmap|sqlmap,Test default credentials|Enumerate databases,mysql -h <target> -u root -p|nmap --script mysql-info -p 3306 <target>
+161,snmp,open,CVE-2002-0012|Public Community String,nmap|onesixtyone,Enumerate SNMP values,onesixtyone -c community.txt <target>|snmpwalk -v2c -c public <target>
+27017,mongodb,filtered,Weak Authentication|Unauthenticated MongoDB,mongo|metasploit,Enumerate databases|Check authentication settings,mongo --host <target>
+161,snmp,closed,Public Community String,snmpwalk,Check default community strings,snmpwalk -v2c -c public <target>|onesixtyone -c community.txt <target>
+443,https,closed,SSL Misconfiguration|Heartbleed,nikto|sslscan,Scan SSL vulnerabilities|Check TLS configuration,testssl.sh <target>
+80,http,open,CVE-2021-41773|Directory Listing|XSS,burpsuite|gobuster,Enumerate directories|Test login forms|Check web vulnerabilities,sqlmap -u http://<target>/login.php?id=1
+443,https,closed,Weak TLS|Heartbleed|SSL Misconfiguration,nikto|sslscan|testssl,Check TLS configuration,sslscan <target>|testssl.sh <target>
+443,https,closed,SSL Misconfiguration|Heartbleed,sslscan|nikto|testssl,Check TLS configuration|Scan SSL vulnerabilities,sslscan <target>
+445,microsoft-ds,closed,Weak Credentials|SMBv1 Enabled,metasploit,Check SMB version,crackmapexec smb <target>|enum4linux <target>
+27017,mongodb,open,Unauthenticated MongoDB|Weak Authentication,mongo|nmap,Enumerate databases|Check authentication settings,mongo --host <target>|nmap --script mongodb-info -p 27017 <target>
